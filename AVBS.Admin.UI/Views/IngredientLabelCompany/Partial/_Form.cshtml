@@ -1,0 +1,140 @@
+﻿@using AVBS.Entity.Concrete
+@using AVBS.Enum
+@model AVBS_IngredientLabelCompany
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary( true )
+
+<style>
+    .form-horizontal .form-group {
+        margin-right: 0 !important;
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="IngredientId"> İçerik </label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-layers-alt"></i>
+                </div>
+                @Html.DropDownListFor( model => model.IngredientId, new SelectList( ViewBag.IngredientList, "Id", "Name" ), "", htmlAttributes: new { placeholder = "İçerik Seçiniz", @class = "form-control select2", required = "required" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="WorkWithCompanyId"> Firma </label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-briefcase"></i>
+                </div>
+                @Html.DropDownListFor( model => model.WorkWithCompanyId, new SelectList( ViewBag.WorkWithCompanyList, "Id", "Name" ), "", htmlAttributes: new { placeholder = "Firma Seçiniz", @class = "form-control select2", required = "required" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="LabelId"> Marka </label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-bookmark"></i>
+                </div>
+                @Html.DropDownListFor( model => model.LabelId, new SelectList( ViewBag.LabelList, "Id", "Name" ), "", htmlAttributes: new { placeholder = "Marka Seçiniz", @class = "form-control select2", required = "required" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+
+</div>
+
+@*<script src="/plugins/inputmask/jquery.inputmask.bundle.js"></script>*@
+<script src="/plugins/bower_components/custom-select/custom-select.min.js"></script>
+<script src="/js/validator.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(document).on("submit",
+            "#selectbox_validate",
+            function () {
+                if ($("div#maindiv").hasClass("has-error")) {
+                    $(this).find(".bootstrap-select")
+                        .after("<h6 class='has-error' style='color:red;'>please select any value from options.</h6>");
+                }
+
+            });
+
+
+        $("#WorkWithCompanyId").select2({
+            formatNoMatches: function (term) {
+                return "<em>" +
+					term +
+					'</em> not found.<br><a href="/" onclick="modalForm(\'/references/workwithcompany/createwithreturn\',\'#WorkWithCompanyId\')"> + Yeni Ekle </a>';
+            }
+        });
+
+        $("#IngredientId").select2({
+            formatNoMatches: function (term) {
+                return "<em>" +
+					term +
+					'</em> not found.<br><a href="/" onclick="modalForm(\'/references/ingredient/createwithreturn\',\'#IngredientId\')"> + Yeni Ekle </a>';
+            }
+        });
+
+        $("#UnitTypeId").select2({
+            formatNoMatches: function (term) {
+                return "<em>" +
+					term +
+					'</em> not found.<br><a href="/" onclick="modalForm(\'/references/unittype/createwithreturn\',\'#UnitTypeId\')"> + Yeni Ekle </a>';
+            }
+        });
+
+        $("#LabelId").select2({
+            formatNoMatches: function (term) {
+                return "<em>" +
+					term +
+					'</em> not found.<br><a href="/" onclick="modalForm(\'/references/label/createwithreturn\',\'#LabelId\')"> + Yeni Ekle </a>';
+            }
+        });
+
+        var unitprice = $('#UnitPrice');
+        var quantity = $('#Quantity');
+        unitprice.on('keyup',
+            function () {
+                calculatePrice();
+                calculateTotalPrice();
+            });
+        quantity.on('keyup',
+            function () {
+                calculatePrice();
+                calculateTotalPrice();
+            });
+
+        var taxcutpercentage = $('#TaxCutPercentage');
+        var price = $('#PriceWithoutTax');
+        price.on('keyup', calculateTotalPrice);
+        price.on('change', calculateTotalPrice);
+        taxcutpercentage.on('keyup', calculateTotalPrice);
+
+        function calculatePrice() {
+            $("#PriceWithoutTax").val((quantity.val() * unitprice.val()).toFixed(2));
+        }
+        function calculateTotalPrice() {
+            $("#TotalPrice").val((price.val() * 1 + (price.val() * taxcutpercentage.val() / 100)).toFixed(2));
+        }
+
+    });
+
+
+</script>

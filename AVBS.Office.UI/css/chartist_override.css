@@ -1,0 +1,98 @@
+.ct-label {
+    color: rgba(0,0,0,1);
+    font-size: 1.0rem;
+}
+
+.ct-series .ct-bar {
+    stroke-width: 40px;
+}
+
+#dwell_time .ct-grid.ct-horizontal {
+    visibility: hidden;
+}
+
+#dwell_time .ct-bar {
+    stroke: url(#gradient);
+}
+
+#dwell_time .ct-bar:hover {
+    stroke: rgb(255,0,255);
+}
+
+#dwell_time .ct-bar + rect {
+    visibility: hidden;
+}
+
+#dwell_time .ct-bar:hover + rect {
+    visibility: visible;
+}
+
+#dwell_time .ct-bar + rect + polygon {
+    visibility: hidden;
+}
+
+#dwell_time .ct-bar:hover + rect + polygon {
+    visibility: visible;
+}
+
+#dwell_time .ct-bar + rect + polygon + text {
+    visibility: hidden;
+}
+
+#dwell_time .ct-bar:hover + rect + polygon + text {
+    visibility: visible;
+}
+
+#visit_freq .ct-grid.ct-vertical {
+    visibility: hidden;
+}
+
+#visit_freq .ct-bar {
+    stroke: url(#gradient1);
+}
+
+#visit_freq .ct-bar:hover {
+    stroke: rgb(255,0,255);
+}
+
+#visit_freq .ct-bar + rect {
+    visibility: hidden;
+}
+
+#visit_freq .ct-bar:hover + rect {
+    visibility: visible;
+}
+
+#visit_freq .ct-bar + rect + polygon {
+    visibility: hidden;
+}
+
+#visit_freq .ct-bar:hover + rect + polygon {
+    visibility: visible;
+}
+
+#visit_freq .ct-bar + rect + polygon + text {
+    visibility: hidden;
+}
+
+#visit_freq .ct-bar:hover + rect + polygon + text {
+    visibility: visible;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: blue;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: darkblue;
+}

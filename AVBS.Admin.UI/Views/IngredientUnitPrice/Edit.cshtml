@@ -1,0 +1,37 @@
+﻿<link href="/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+
+<!-- .row -->
+@using ( Html.BeginForm( "Edit", "IngredientUnitPrice", FormMethod.Post, new { @class = "form-horizontal", data_toggle = "validator" } ) ) {
+    <div class="panel panel-default" style="margin-top: 0">
+        <div class="panel-heading">
+            Gider <small class="text-muted"> Yeni Gider Ekle </small>
+        </div>
+        <div class="panel-wrapper">
+            <div class="panel-body">
+                <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+                @Html.Partial( "Partial/_Form" )
+
+
+                <div class="form-group m-b-0">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-default waves-effect waves-light m-t-10" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Back</span></button>
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-t-10">Save</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+}
+
+<script src="/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+        jQuery('.mydatepicker, #datepicker').datepicker({
+            format: 'dd/mm/yyyy'
+        });
+
+
+    });
+</script>

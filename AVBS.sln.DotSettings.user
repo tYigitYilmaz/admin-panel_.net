@@ -1,0 +1,9 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
+  &lt;Assembly Path="D:\Yigit Yilmaz\AVBS\Yazılım\Website\bubers\AVBS\packages\Svg.2.3.0\lib\net35\Svg.dll" /&gt;&#xD;
+  &lt;Assembly Path="D:\Yigit Yilmaz\AVBS\Yazılım\Website\bubers\AVBS\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll" /&gt;&#xD;
+  &lt;Assembly Path="D:\Yigit Yilmaz\AVBS\Yazılım\Website\bubers\AVBS\AVBS.Admin.UI\bin\Npgsql.dll" /&gt;&#xD;
+  &lt;Assembly Path="D:\Yigit Yilmaz\AVBS\Yazılım\Website\bubers\AVBS\AVBS.Admin.UI\bin\EntityFramework6.Npgsql.dll" /&gt;&#xD;
+  &lt;Assembly Path="D:\Yigit Yilmaz\Software\AVBS\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll" /&gt;&#xD;
+  &lt;Assembly Path="D:\Yigit Yilmaz\Software\AVBS\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>

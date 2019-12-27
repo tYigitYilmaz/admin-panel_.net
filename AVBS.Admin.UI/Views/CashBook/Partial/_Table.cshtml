@@ -1,0 +1,143 @@
+﻿<div class="row s-table-elements">
+    <div class="col-lg col-sm-12">
+        @*<form class="s-input-group">
+        <div class="input-group-addon s-table-search"><i class="fa fa-search"></i></div>
+        <div class="floating-labels table-search">
+            <input type="text" class="form-control table-search-input" id="cashBookSearch" placeholder="Search . . ."><span class="highlight"></span> <span class="bar"></span>
+        </div>
+    </form>*@
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="s-table-actions">
+            <button data-url="/cashbook/createpartial" class="btn btn-primary ajax-modal pull-right"> Manuel Gün Ekle </button>
+            <div class="input-group-btn pull-right mr-2">
+                <button type="button" class="btn btn-filter-view" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ti-more-alt"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#"> Export as Excel </a>
+                    <a class="dropdown-item" href="#"> Export as Pdf </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="cashbookTableDiv" class="table-responsive">
+    <table id="cashbookTable" class="display nowrap" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Tarih</th>
+            <th style="text-align: center;">Gün Başlangıç</th>
+            <th style="text-align: center;">Gün Bitiş</th>
+            <th style="text-align: center;">Banka</th>
+            <th style="text-align: center;">Toplam Gelen</th>
+            <th style="text-align: center;">Toplam Giden</th>
+            <th style="text-align: center; width: 10%;">Gün Tamamlandı Mı?</th>
+            <th style="text-align: center;">Ciro</th>
+            <th style="text-align: center;">İşlemler</th> 
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    $(document).ready(function() {
+        var cashbookTable = $('#cashbookTable').DataTable({
+            ajax: '/CashBook/GetList?PeriodType=1',
+            columnDefs: [
+                {
+                    targets: 0,
+                    className: 'all',
+                    render: function (Id, type, full) {
+                        return parseJsonDate(full.Date);
+                    }
+                },
+                 {
+                     targets: 1,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return full.CashStart + " ₺";
+                     }
+                 },
+                 {
+                     targets: 2,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return (full.CashEnd ? full.CashEnd + " ₺" : "-");
+                     }
+                 },
+                 {
+                     targets: 3,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return full.Bank + " ₺";
+                     }
+                 },
+                 {
+                     targets: 4,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return full.TotalIncome + " ₺";
+                     }
+                 },
+                 {
+                     targets: 5,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return full.TotalOutgoing + " ₺";
+                     }
+                 },
+                 {
+                     targets: 6,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         var color = "rgba(251, 150, 120, 0.2)";
+                         if (full.IsDayClosed) color = "rgba(0, 194, 146, 0.2)";
+
+                         var changeDayStatusButton = '<a href="#" data-url="/cashbook/changedaystatus/' + full.Id + '" class="change-status-button" data-toggle="tooltip" data-original-title="Close"> <i class="ti-exchange-vertical"></i> </a>';
+
+                         return "<div class='incoming-type' style='background:" + color + "'>" + (full.IsDayClosed ? "EVET" : "HAYIR") + changeDayStatusButton + "</div>";
+                     }
+                 },
+                 {
+                     targets: 7,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return (full.Turnover ? full.Turnover + " ₺" : "-");
+                     }
+                 },
+                {
+                    orderable: false,
+                    targets: 8,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        var returnOptions = '';
+
+                        if (!full.IsDayClosed) {
+                            returnOptions += 
+                                    ' <a href="/cashbook/show/' + full.Id + '" data-original-title="Show"> <i class="ti-search text-info m-r-10"></i> </a>' +
+                                    ' <a href="#" data-url="/cashbook/editpartial/' + full.Id + '" class="ajax-modal" data-original-title="Edit"> <i class="ti-pencil text-inverse m-r-10"></i> </a>' + 
+                                    ' <a href="#" data-url="/cashbook/delete/' + full.Id + '" class="remove-element" data-toggle="tooltip" data-original-title="Close"> <i class="ti-trash text-danger"></i> </a>';
+                        }
+
+
+                        return  returnOptions ;
+                    }
+                }
+
+            ]
+        });
+
+        // initialize tables search inputs
+        $('#cashBookSearch').keyup(function () {
+            cashbookTable.search($(this).val()).draw();
+        });
+    })
+
+</script>
+ 

@@ -1,0 +1,106 @@
+﻿<div class="row s-table-elements">
+    <div class="col-lg col-sm-12">
+        <form class="s-input-group">
+            <div class="input-group-addon s-table-search"><i class="fa fa-search"></i></div>
+            <div class="floating-labels table-search">
+                <input type="text" class="form-control table-search-input" id="outgoingSearch" placeholder="Search . . ."><span class="highlight"></span> <span class="bar"></span>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="s-table-actions">
+            <button data-url="/outgoing/createpartial" class="btn btn-primary btn-xs ajax-modal pull-right"> Gider Ekle </button>
+            <div class="input-group-btn pull-right mr-2">
+                <button type="button" class="btn btn-filter-view" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ti-more-alt"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#"> Export as Excel </a>
+                    <a class="dropdown-item" href="#"> Export as Pdf </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="outgoingTableDiv" class="table-responsive">
+    <table id="outgoingTable" class="display nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Tarih</th>
+                <th style="text-align: center;">Gider Tipi</th>
+                <th style="text-align: center;">Gider Alt Tipi</th>
+                <th style="text-align: center;">Miktarı</th>
+                <th style="text-align: center;">Açıklama</th>
+                <th style="text-align: center;">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+<script>
+
+    var totalOutgoing = 0;
+
+    $(document).ready(function() {
+        var outgoingTable = $('#outgoingTable').DataTable({
+            ajax: '/Outgoing/GetList',
+            columnDefs: [
+                {
+                    targets: 0,
+                    className: 'all',
+                    render: function (Id, type, full) {
+                        return parseJsonDate(full.Date);
+                    }
+                },
+                {
+                    targets: 1,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.OutgoingTypeName;
+                    }
+                },
+                {
+                    targets: 2,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.SubOutgoingTypeName;
+                    }
+                },
+                 {
+                     targets: 3,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return full.Amount + " ₺";
+                     }
+                 },
+                {
+                    orderable: false,
+                     targets: 4,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return full.Description;
+                     }
+                 },
+                {
+                    orderable: false,
+                    targets: 5,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return ' <a href="#" data-url="/outgoing/editpartial/' + full.Id + '" class="ajax-modal" data-original-title="Edit"> <i class="ti-pencil text-inverse m-r-10"></i> </a>' + '<a href="#" data-url="/outgoing/delete/' + full.Id + '" class="remove-element" data-toggle="tooltip" data-original-title="Close"> <i class="ti-trash text-danger"></i> </a>';
+                    }
+                }
+
+            ]
+        });
+
+        // initialize tables search inputs
+        $('#outgoingSearch').keyup(function () {
+            outgoingTable.search($(this).val()).draw();
+        });
+    })
+
+</script>

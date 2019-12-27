@@ -1,0 +1,124 @@
+﻿@using AVBS.Enum
+<div class="row s-table-elements">
+    <div class="col-lg col-sm-12">
+        <form class="s-input-group">
+            <div class="input-group-addon s-table-search"><i class="fa fa-search"></i></div>
+            <div class="floating-labels table-search">
+                <input type="text" class="form-control table-search-input" id="cashBookIncomingSearch" placeholder="Search . . ."><span class="highlight"></span> <span class="bar"></span>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="s-table-actions">
+            <button data-url="/cashbookincoming/createpartial/@ViewBag.CashBookId" class="btn btn-primary ajax-modal pull-right"> Gelir Ekle </button>
+            <div class="input-group-btn pull-right mr-2">
+                <button type="button" class="btn btn-filter-view" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ti-more-alt"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#"> Export as Excel </a>
+                    <a class="dropdown-item" href="#"> Export as Pdf </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="cashbookIncomingTableDiv" class="table-responsive">
+    <table id="cashbookIncomingTable" class="display nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Tarih</th>
+                <th style="text-align: center; width: 10%">Gelir Tipi</th>
+                <th style="text-align: center;">Kredi Kartı</th>
+                <th style="text-align: center;">Komisyon</th>
+                <th style="text-align: center;">Miktarı</th>
+                <th style="text-align: center;">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th class="total-income"></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+<script>
+
+    $(document).ready(function() {
+        var cashbookIncomingTable = $('#cashbookIncomingTable').DataTable({
+            ajax: {
+                "url": '/CashBookIncoming/GetList?cashbookid=@ViewBag.CashBookId',
+                "dataSrc": function (json) {
+                    $('#cashbookIncomingTableDiv .total-income').html('Toplam: ₺ ' + json.totalIncome);
+                    return json.data;
+                }
+            },
+            columnDefs: [
+                {
+                    targets: 0,
+                    className: 'all',
+                    render: function (Id, type, full) {
+                        return parseJsonDate(full.Date);
+                    }
+                },
+                {
+                    targets: 1,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        var color = "none;";
+                        if (full.IncomingTypeId == @IncomingType.CreditCard.GetHashCode()) color = "rgba(150,117,206,0.2)";
+                        else if (full.IncomingTypeId == @IncomingType.Cash.GetHashCode()) color = "rgba(251,150,120,0.2)";
+                        else if (full.IncomingTypeId == @IncomingType.Online.GetHashCode()) color = "rgba(91,192,222,0.2)";
+                        return "<div class='incoming-type' style='background:" + color + "'>" + full.IncomingTypeName + "</div>";
+                    }
+                },
+                {
+                    targets: 2,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.CreditCardTypeName;
+                    }
+                },
+                {
+                    targets: 3,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.CommissionRate ? "% " + full.CommissionRate  : "-";
+                    }
+                },
+                 {
+                     targets: 4,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return full.Amount + " ₺";
+                     }
+                 },
+                {
+                    orderable: false,
+                    targets: 5,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return ' <a href="#" data-url="/cashbookincoming/editpartial/' + full.Id + '" class="ajax-modal" data-original-title="Edit"> <i class="ti-pencil text-inverse m-r-10"></i> </a>' + '<a href="#" data-url="/cashbookincoming/delete/' + full.Id + '" class="remove-element" data-toggle="tooltip" data-original-title="Close"> <i class="ti-trash text-danger"></i> </a>';
+                    }
+                }
+
+            ]
+        });
+
+        // initialize tables search inputs
+        $('#cashBookIncomingSearch').keyup(function () {
+            cashbookIncomingTable.search($(this).val()).draw();
+        });
+    })
+
+</script>

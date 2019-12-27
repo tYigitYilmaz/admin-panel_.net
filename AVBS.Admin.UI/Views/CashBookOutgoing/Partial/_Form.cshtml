@@ -1,0 +1,83 @@
+﻿@using AVBS.Entity.Concrete
+@using AVBS.Enum
+@model AVBS_Outgoing
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary( true )
+
+@{
+    var cashbook = (AVBS_CashBook) ViewBag.CashBook;
+}
+
+<style>
+    .form-horizontal .form-group {
+        margin-right: 0 !important;
+    }
+</style>
+
+<input type="hidden" id="Date" name="Date" value="@cashbook.Date.ToString("dd/MM/yyyy")" />
+<input type="hidden" id="CashBookId" name="CashBookId" value="@cashbook.Id" />
+<input type="hidden" id="OutgoingSourceTypeId" name="OutgoingSourceTypeId" value="@OutgoingSourceType.Cash.GetHashCode( )" />
+
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="SubOutgoingTypeId"> Gider Alt Tipi </label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="ti-layers-alt"></i></div>
+                @Html.DropDownListFor( model => model.SubOutgoingTypeId, new SelectList( ViewBag.SubOutgoingTypeList, "Id", "Name" ), "", htmlAttributes: new { placeholder = "Gider Alt Tipi Seçiniz", @class = "form-control select2", required = "required" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="Amount">Miktar</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-money"></i>
+                </div>
+                @Html.TextBoxFor( model => model.Amount, htmlAttributes: new { @class = "form-control", @placeholder = "Miktar", required = "required", data_inputmask = "'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="Description"> Açıklama (*) </label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="ti-text"></i></div>
+                @Html.TextAreaFor( model => model.Description, htmlAttributes: new { @class = "form-control", @placeholder = "Opsiyonel", maxlength = "255" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+</div>
+
+@*<script src="/plugins/inputmask/jquery.inputmask.bundle.js"></script>*@
+<script src="/plugins/bower_components/custom-select/custom-select.min.js"></script>
+<script src="/js/validator.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(document).on("submit", "#selectbox_validate", function () {
+            if ($("div#maindiv").hasClass("has-error")) {
+                $(this).find(".bootstrap-select")
+                    .after("<h6 class='has-error' style='color:red;'>please select any value from options.</h6>");
+            }
+        });
+
+
+        $("#SubOutgoingTypeId").select2({
+            formatNoMatches: function (term) {
+                return "<em>" +
+					term +
+					'</em> not found.<br><a href="/" onclick="modalForm(\'/references/suboutgoingtype/createwithreturn\',\'#SubOutgoingTypeId\')"> + Yeni Ekle </a>';
+            }
+        });
+
+    });
+</script>

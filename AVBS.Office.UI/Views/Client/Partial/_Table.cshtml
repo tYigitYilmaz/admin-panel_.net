@@ -1,0 +1,108 @@
+﻿@using AVBS.Enum
+<div class="row s-table-elements">
+    <div class="col-lg col-sm-12">
+        <form class="s-input-group">
+            <div class="input-group-addon s-table-search"><i class="fa fa-search"></i></div>
+            <div class="floating-labels table-search">
+                <input type="text" class="form-control table-search-input" id="clientSearch" placeholder="Search . . ."><span class="highlight"></span> <span class="bar"></span>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="s-table-actions">
+            <button data-url="/client/createpartial" class="btn btn-primary btn-xs fileinput-modal pull-right"> Yeni Ekle </button>
+            <div class="input-group-btn pull-right mr-2">
+                <button type="button" class="btn btn-filter-view" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ti-more-alt"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#"> Export as Excel </a>
+                    <a class="dropdown-item" href="#"> Export as Pdf </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="clientTableDiv" class="table-responsive">
+    <table id="clientTable" class="display nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th style="text-align: center;">Adı</th>
+                <th style="text-align: center;">Soyadı</th>
+                <th style="text-align: center;">Telefon</th>
+                <th style="text-align: center;">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+<script>
+
+    var totalOutgoing = 0;
+
+    $(document).ready(function() {
+        var clientTable = $('#clientTable').DataTable({
+            ajax: '/Client/GetList',
+            columnDefs: [
+            {
+                orderable: false,
+                targets: 0,
+                className: 'all',
+                render: function (Id, type, full) {
+
+                    if (full.ImageUrl == '' || full.ImageUrl == null) {
+                        var intials = full.Name.charAt(0).toUpperCase() + full.Surname.charAt(0).toUpperCase();
+                        return '<a href="#" data-url="/client/editpartial/' + full.Id + '" class="fileinput-modal"> <div class="table-avatar-div client-edit" style="' +
+                            'background-color:#3f5b88">' + intials + '</div></a>';
+                    }
+
+                    return '<a href="#" data-url="/client/editpartial/' + full.Id + '" class="fileinput-modal"><img src="' + full.ImageUrl + '" onError="this.onerror=null;this.src=\'/Images/no-image.png\';" alt="user-img" width="50" height="50" data-url="/client/edit/' + full.Id +
+                        '" class="img-circle client-edit"></a>';
+                }
+            },
+             {
+                 targets: 1,
+                 className: 'dt-center',
+                 render: function (Id, type, full) {
+                     return full.Name;
+                 }
+             },
+            {
+                targets: 2,
+                className: 'dt-center',
+                render: function (Id, type, full) {
+                    return full.Surname;
+                }
+            },
+            {
+                targets: 3,
+                className: 'dt-center',
+                render: function (Id, type, full) {
+                    return full.Phone;
+                }
+            },
+            {
+                orderable: false,
+                targets: 4,
+                className: 'dt-center',
+                render: function (Id, type, full) {
+                    return  ' <a href="#" data-url="/client/editpartial/' + full.Id + '" class="fileinput-modal" data-original-title="Düzenle"> <i class="ti-pencil text-inverse m-r-10"></i> </a>' +
+                            ' <a href="#" data-url="/client/refreshpasswordpartial/' + full.Id + '" class="ajax-modal" data-original-title="Şifre Yenile"> <i class="ti-key text-info m-r-10"></i> </a>' +
+                            '<a href="#" data-url="/client/delete/' + full.Id + '" class="remove-element" data-toggle="tooltip" data-original-title="Sil"> <i class="ti-trash text-danger"></i> </a>';
+                }
+            }
+
+            ]
+        });
+
+        // initialize tables search inputs
+        $('#clientSearch').keyup(function () {
+            clientTable.search($(this).val()).draw();
+        });
+    })
+
+</script>

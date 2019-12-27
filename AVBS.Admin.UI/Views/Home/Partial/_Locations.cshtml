@@ -1,0 +1,9 @@
+﻿<div class="row">
+    <div class="col-lg-7 col-sm-12">
+        @Html.Partial( "~/Views/Location/Partial/_Map.cshtml" )
+    </div>
+    <div class="col-lg-5 col-sm-12">
+        <h3 class="box-title"># of Locations: @ViewBag.LocationCount </h3>
+        @Html.Partial( "~/Views/Location/Partial/_Table.cshtml" )
+    </div>
+</div>

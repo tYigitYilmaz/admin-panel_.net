@@ -1,0 +1,31 @@
+﻿<!-- .row -->
+@using ( Html.BeginForm( "AssignPartial", "Ticket", FormMethod.Post, new { @class = "form-horizontal", novalidate = "" } ) ) {
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary( true )
+
+    <div class="panel panel-default" style="margin-top: 0">
+        <div class="panel-heading">
+           Atama Yap <small class="text-muted"> </small>
+        </div>
+        <div class="panel-wrapper">
+            <div class="panel-body">
+                <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+                @Html.Partial( "Partial/_AssignForm" )
+
+                <div class="form-group m-b-0">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-default waves-effect waves-light m-t-10" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Geri</span></button>
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-t-10">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+
+

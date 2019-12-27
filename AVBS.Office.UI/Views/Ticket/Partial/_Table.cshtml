@@ -1,0 +1,131 @@
+﻿@using AVBS.Enum
+<div class="row s-table-elements">
+    <div class="col-lg col-sm-12">
+        <form class="s-input-group">
+            <div class="input-group-addon s-table-search"><i class="fa fa-search"></i></div>
+            <div class="floating-labels table-search">
+                <input type="text" class="form-control table-search-input" id="ticketSearch" placeholder="Search . . ."><span class="highlight"></span> <span class="bar"></span>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="s-table-actions">
+            <button data-url="/ticket/createpartial" class="btn btn-primary btn-xs fileinput-modal pull-right"> Yeni Ekle </button>
+            <div class="input-group-btn pull-right mr-2">
+                <button type="button" class="btn btn-filter-view" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ti-more-alt"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#"> Export as Excel </a>
+                    <a class="dropdown-item" href="#"> Export as Pdf </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ticketTableDiv" class="table-responsive">
+    <table id="ticketTable" class="display nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Soru Başlığı</th>
+                <th style="text-align: center;">Tarih</th>
+                <th style="text-align: center;">Soran Müvekkil</th>
+                <th style="text-align: center;">Atandı Mı?</th>
+                <th style="text-align: center;">Atanan Kişi</th>
+                <th style="text-align: center;">Cevaplandı Mı?</th>
+                <th style="text-align: center;">Cevaplayan Kişi</th>
+                <th style="text-align: center;">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+<script>
+
+    var totalOutgoing = 0;
+
+    $(document).ready(function() {
+        var ticketTable = $('#ticketTable').DataTable({
+            ajax: '/Ticket/GetList',
+            order: [[ 1, "desc" ]],
+            columnDefs: [
+            {
+                orderable: false,
+                targets: 0,
+                className: 'dt-center',
+                render: function (Id, type, full) {
+                    return full.QuestionHeader;
+                }
+            },
+             {
+                 targets: 1,
+                 className: 'dt-center',
+                 render: function (Id, type, full) {
+                     return parseJsonDate(full.QuestionDate);
+                 }
+             },
+            {
+                targets: 2,
+                className: 'dt-center',
+                render: function (Id, type, full) {
+                    return full.ClientName;
+                }
+            },
+            {
+                targets: 3,
+                className: 'dt-center',
+                render: function (Id, type, full) {
+                    var returnVal = "";
+                    if (full.IsAssigned) returnVal += " <span class='table-info-column bc-yes'>EVET</span> ";
+                    else returnVal += "<span class='table-info-column bc-no'>HAYIR</span> ";
+                    return  returnVal + '<a href="#" data-url="/ticket/assignpartial/' + full.Id + '" class="ajax-modal" data-original-title="Şifre Yenile"> <i class="ti-arrow-top-right text-info m-r-10"></i> </a>';
+
+                }
+            },
+            {
+                targets: 4,
+                className: 'dt-center',
+                render: function (Id, type, full) {
+                    return full.AssignedUserName;
+                }
+            },
+            {
+                targets: 5,
+                className: 'dt-center',
+                render: function (Id, type, full) {
+                    var returnVal = "";
+                    if (full.IsAnswered) returnVal += " <span class='table-info-column bc-yes'>EVET</span> ";
+                    else returnVal += "<span class='table-info-column bc-no'>HAYIR</span> ";
+                    return returnVal + '<a href="#" data-url="/ticket/answerpartial/' + full.Id + '" class="ajax-modal" data-original-title="Şifre Yenile"> <i class="ti-arrow-top-right text-info m-r-10"></i> </a>';
+                }
+            },
+            {
+                targets: 6,
+                className: 'dt-center',
+                render: function (Id, type, full) {
+                    return full.AnsweredUserName;
+                }
+            },
+            {
+                orderable: false,
+                targets: 7,
+                className: 'dt-center',
+                render: function (Id, type, full) {
+                    return  ' <a href="#" data-url="/ticket/editpartial/' + full.Id + '" class="fileinput-modal" data-original-title="Düzenle"> <i class="ti-pencil text-inverse m-r-10"></i> </a>' +
+                            '<a href="#" data-url="/ticket/delete/' + full.Id + '" class="remove-element" data-toggle="tooltip" data-original-title="Sil"> <i class="ti-trash text-danger"></i> </a>';
+                }
+            }
+
+            ]
+        });
+
+        // initialize tables search inputs
+        $('#ticketSearch').keyup(function () {
+            ticketTable.search($(this).val()).draw();
+        });
+    })
+
+</script>

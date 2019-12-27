@@ -1,0 +1,51 @@
+﻿
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AVBS - Login</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, mximum-scale=1">
+	<link href="/Content/Login/css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" href="/Content/Login/css/bootstrap.min.css">
+	<script src="/Content/Login/js/jquery-3.3.1.slim.min.js"></script>
+	<script src="/Content/Login/js/popper.min.js"></script>
+	<script src="/Content/Login/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+		    <!-- Login Form -->
+            <div class="col-md-7 col-sm-12" id="login-form">
+                <div class="logo-img">
+                    <img src="/Content/Login/images/logo2.png" style="width:100%">
+                </div>
+            </div>
+			<div class="col-md-5 col-sm-12" id="login-form"> 
+				<h1 class="logo-txt">BUBER <span class="logo-txt-light">S</span></h1>
+				<br><br>
+				<form class="form-signin" action="/Login/login" method="post">
+					<span id="reauth-email" class="reauth-email"></span>
+					<label class="header-grey">Email</label>
+					<input type="text" name="email" id="email" class="form-control" placeholder="Enter Email" required autofocus>
+					<br>
+					<label class="header-grey">Password</label>
+					<input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+					<br>
+					<div id="remember" class="checkbox">
+						<label>
+							<input type="checkbox" value="remember-me"> <span class="header-grey">Remember me</span>
+						</label>
+					</div>
+					<br>
+					<button class="btn btn-primary btn-md btn-block" type="submit" id="login-btn" style="background-color: #f58942 !important;">Log in</button>
+				</form> 
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+﻿@using AVBS.Enum
+<div class="row s-table-elements">
+    <div class="col-lg col-sm-12">
+        <form class="s-input-group">
+            <div class="input-group-addon s-table-search"><i class="fa fa-search"></i></div>
+            <div class="floating-labels table-search">
+                <input type="text" class="form-control table-search-input" id="personnelSearch" placeholder="Search . . ."><span class="highlight"></span> <span class="bar"></span>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="s-table-actions">
+            <button data-url="/personnel/createpartial" class="btn btn-primary btn-xs fileinput-modal pull-right"> Yeni Ekle </button>
+            <div class="input-group-btn pull-right mr-2">
+                <button type="button" class="btn btn-filter-view" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ti-more-alt"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#"> Export as Excel </a>
+                    <a class="dropdown-item" href="#"> Export as Pdf </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="personnelTableDiv" class="table-responsive">
+    <table id="personnelTable" class="display nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th style="text-align: center;">Adı</th>
+                <th style="text-align: center;">Email</th>
+                <th style="text-align: center;">Telefon</th>
+                <th style="text-align: center;">Rol</th>
+                <th style="text-align: center;">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+<script>
+
+    var totalOutgoing = 0;
+
+    $(document).ready(function() {
+        var personnelTable = $('#personnelTable').DataTable({
+            ajax: '/Personnel/GetList',
+            columnDefs: [
+            {
+                orderable: false,
+                targets: 0,
+                className: 'all',
+                render: function (Id, type, full) {
+
+                    if (full.ImageUrl == '' || full.ImageUrl == null) {
+                        var intials = full.Name.charAt(0).toUpperCase() + full.Surname.charAt(0).toUpperCase();
+                        return '<a href="#" data-url="/personnel/editpartial/' + full.Id + '" class="fileinput-modal"> <div class="table-avatar-div personnel-edit" style="' +
+                            'background-color:#3f5b88">' + intials + '</div></a>';
+                    }
+
+                    return '<a href="#" data-url="/personnel/editpartial/' + full.Id + '" class="fileinput-modal"><img src="' + full.ImageUrl + '" onError="this.onerror=null;this.src=\'/Images/no-image.png\';" alt="user-img" width="50" height="50" data-url="/personnel/edit/' + full.Id +
+                        '" class="img-circle personnel-edit"></a>';
+                }
+            },
+             {
+                 targets: 1,
+                 className: 'dt-center',
+                 render: function (Id, type, full) {
+                     return full.Name + " " + full.Surname;
+                 }
+             },
+            {
+                targets: 2,
+                className: 'dt-center',
+                render: function (Id, type, full) {
+                    return full.Email;
+                }
+            },
+            {
+                targets: 3,
+                className: 'dt-center',
+                render: function (Id, type, full) {
+                    return full.Phone;
+                }
+            },
+            {
+                targets: 4,
+                className: 'dt-center',
+                render: function (Id, type, full) {
+                    var color = "none;";
+                    if (full.RoleId == @Role.YONETICI_AVUKAT.GetHashCode()) color = "rgba(206,117,91,0.2)";
+                    else if (full.RoleId == @Role.AVUKAT.GetHashCode()) color = "rgba(251,150,222,0.2)";
+                    else if (full.RoleId == @Role.KATIP.GetHashCode()) color = "rgba(91,23,222,0.2)";
+                    else if (full.RoleId == @Role.MUHASEBECI.GetHashCode()) color = "rgba(150,117,206,0.2)";
+                    else if (full.RoleId == @Role.SEKRETER.GetHashCode()) color = "rgba(91,222,222,0.2)";
+                    return "<div class='incoming-type' style='background:" + color + "'>" + full.RoleName + "</div>";
+                }
+            },
+            {
+                orderable: false,
+                targets: 5,
+                className: 'dt-center',
+                render: function (Id, type, full) {
+                    return  ' <a href="#" data-url="/personnel/editpartial/' + full.Id + '" class="fileinput-modal" data-original-title="Düzenle"> <i class="ti-pencil text-inverse m-r-10"></i> </a>' +
+                            ' <a href="#" data-url="/personnel/refreshpasswordpartial/' + full.Id + '" class="ajax-modal" data-original-title="Şifre Yenile"> <i class="ti-key text-info m-r-10"></i> </a>' +
+                            '<a href="#" data-url="/personnel/delete/' + full.Id + '" class="remove-element" data-toggle="tooltip" data-original-title="Sil"> <i class="ti-trash text-danger"></i> </a>';
+                }
+            }
+
+            ]
+        });
+
+        // initialize tables search inputs
+        $('#personnelSearch').keyup(function () {
+            personnelTable.search($(this).val()).draw();
+        });
+    })
+
+</script>

@@ -1,0 +1,80 @@
+﻿@if ( ViewBag.DbSuccess != null ) {
+    if ( ViewBag.DbSuccess ) {
+        @*<div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>BAŞARILI!</strong> İşleminiz başarıyla gerçekleşmiştir.
+            </div>*@
+        <script>
+            $(document).ready(function () {
+                $.toast({
+                    heading: 'BAŞARILI!',
+                    text: 'İşleminiz başarıyla gerçekleşmiştir.',
+                    position: 'top-right',
+                    loaderBg: '#ff6849',
+                    icon: 'success',
+                    hideAfter: 3500,
+                    stack: 6
+                });
+            });
+        </script>
+
+    } else {
+        @*<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>HATA!</strong> İşlem esnasında bir hata oluşmuştur tekrar deneyiniz.
+            </div>*@
+        <script>
+            $(document).ready(function () {
+                $.toast({
+                    heading: 'HATA!',
+                    text: '@ViewBag.DbMessage',
+                    position: 'top-right',
+                    loaderBg: '#ff6849',
+                    icon: 'error',
+                    hideAfter: 3500
+
+                });
+            });
+        </script>
+    }
+}
+@if ( ViewBag.Success != null ) {
+    if ( ViewBag.Success ) {
+        @*<div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>BAŞARILI!</strong> İşleminiz başarıyla gerçekleşmiştir.
+            </div>*@
+        <script>
+            $(document).ready(function () {
+                $.toast({
+                    heading: 'BAŞARILI!',
+                    text: @ViewBag.SuccessMessage,
+                    position: 'top-right',
+                    loaderBg: '#ff6849',
+                    icon: 'success',
+                    hideAfter: 3500,
+                    stack: 6
+                });
+            });
+        </script>
+
+    } else {
+        @*<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>HATA!</strong> İşlem esnasında bir hata oluşmuştur tekrar deneyiniz.
+            </div>*@
+        <script>
+            $(document).ready(function () {
+                $.toast({
+                    heading: 'HATA!',
+                    text: @ViewBag.SuccessMessage,
+                    position: 'top-right',
+                    loaderBg: '#ff6849',
+                    icon: 'error',
+                    hideAfter: 3500
+
+                });
+            });
+        </script>
+    }
+}

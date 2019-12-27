@@ -1,0 +1,177 @@
+﻿@using AVBS.Entity.Concrete
+@using AVBS.Enum
+@model AVBS_Stock
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary( true )
+
+<style>
+    .form-horizontal .form-group {
+        margin-right: 0 !important;
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="Date"> Tarih </label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="icon-calender"></i></div>
+                @Html.TextBoxFor( model => model.Date, ( Model != null ) ? Model.Date.ToString( "dd/MM/yyyy" ) : "", htmlAttributes: new { @class = "form-control mydatepicker", @placeholder = "Tarih Seçiniz", required = "required" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="IngredientId"> İçerik </label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-layers-alt"></i>
+                </div>
+                @Html.DropDownListFor( model => model.IngredientUnitPriceId, new SelectList( ViewBag.IngredientUnitPriceList, "Id", "Name" ), "", htmlAttributes: new { placeholder = "İçerik Seçiniz", @class = "form-control select2", required = "required" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md col-sm-12">
+        <div class="form-group">
+            <label for="Quantity">Miktar</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-money"></i>
+                </div>
+                @Html.TextBoxFor( model => model.Quantity, htmlAttributes: new { @class = "form-control", @placeholder = "Miktar", required = "required", data_inputmask = "'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="col-md col-sm-12">
+        <div class="form-group">
+            <label for="PriceWithoutTax"> Fiyat </label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-money"></i>
+                </div>
+                @Html.TextBoxFor( model => model.PriceWithoutTax, htmlAttributes: new { @class = "form-control", @placeholder = "Fiyat Giriniz", required = "required", data_inputmask = "'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="col-md col-sm-12">
+        <div class="form-group">
+            <label for="TotalPrice"> Toplam Fiyat </label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-money"></i>
+                </div>
+                @Html.TextBoxFor( model => model.TotalPrice, htmlAttributes: new { @class = "form-control", @placeholder = "Toplam Fiyat Giriniz", required = "required", data_inputmask = "'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+   
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="Detail"> Açıklama (*) </label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="ti-text"></i></div>
+                @Html.TextAreaFor( model => model.Detail, htmlAttributes: new { @class = "form-control", @placeholder = "Opsiyonel", maxlength = "255" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+</div>
+
+@*<script src="/plugins/inputmask/jquery.inputmask.bundle.js"></script>*@
+<script src="/plugins/bower_components/custom-select/custom-select.min.js"></script>
+<script src="/js/validator.js"></script>
+<script type="text/javascript">
+    
+
+    var unitprice = 0;
+    var taxcutpercentage = 0;
+
+    $(document).ready(function () {
+
+        $(document).on("submit",
+            "#selectbox_validate",
+            function () {
+                if ($("div#maindiv").hasClass("has-error")) {
+                    $(this).find(".bootstrap-select")
+                        .after("<h6 class='has-error' style='color:red;'>please select any value from options.</h6>");
+                }
+
+            });
+
+
+        $("#IngredientUnitPriceId").select2({
+            formatNoMatches: function (term) {
+                return "<em>" +
+                    term +
+                    '</em> not found.<br><a href="/" onclick="modalForm(\'/ingredientunitprice/createwithreturn\',\'#IngredientUnitPriceId\')"> + Yeni Ekle </a>';
+            }
+        });
+
+        @{
+            if ( Model != null && Model.IngredientUnitPriceId > 0 ) {
+                <text> setUnitValues(@Model.IngredientUnitPriceId) </text>
+            }
+        }
+        $("#IngredientUnitPriceId").on('change', function() {
+            setUnitValues($(this).val());
+        });
+
+        var quantity = $('#Quantity');
+       
+        quantity.on('keyup',
+            function () {
+                calculatePrice();
+                calculateTotalPrice();
+            });
+
+        var price = $('#PriceWithoutTax');
+        price.on('keyup', calculateTotalPrice);
+        price.on('change', calculateTotalPrice);
+      
+
+        function calculatePrice() {
+            $("#PriceWithoutTax").val((quantity.val() * unitprice).toFixed(2));
+        }
+        function calculateTotalPrice() {
+            $("#TotalPrice").val((price.val() * 1 + (price.val() * taxcutpercentage / 100)).toFixed(2));
+        }
+
+    });
+
+    function setUnitValues(ingredientunitpriceid) {
+
+        $.ajax({
+            url: '/IngredientUnitPrice/GetValues/' + ingredientunitpriceid,
+            type: 'GET',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.error === 0) {
+                } else {
+                    unitprice = data.unitprice;
+                    taxcutpercentage = data.taxcutpercentage;
+                }
+            }
+        });
+    }
+
+</script>

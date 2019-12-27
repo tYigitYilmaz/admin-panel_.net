@@ -1,0 +1,66 @@
+﻿@using AVBS.View.Concrete.Table
+@{
+    var cashbook = (AVBS_CashBookShowView) ViewBag.Cashbook;
+    var cashIncome = cashbook.Turnover - cashbook.TotalIncome;
+}
+
+<div class="row widget-row">
+    <div class="col-lg col-sm-12">
+        <div class="white-box b-l-success">
+            <h3 class="box-title">Gün Başlangıç (Kasa)</h3>
+            <ul class="list-inline two-part">
+                <li><i class="ti-control-play text-success"></i></li>
+                <li class="text-right"> ₺ <span class="counter">@cashbook.CashStart</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="white-box b-l-purple">
+            <h3 class="box-title">Toplam Gider</h3>
+            <ul class="list-inline two-part">
+                <li><i class="ti-control-play text-purple"></i></li>
+                <li class="text-right"> ₺ <span class="counter">@cashbook.TotalOutgoing</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="white-box b-l-danger">
+            <h3 class="box-title">Nakit Gelir</h3>
+            <ul class="list-inline two-part">
+                <li><i class="icon-people text-danger"></i></li>
+                <li class="text-right"> ₺ <span class="counter"> @cashIncome</span></li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="white-box b-l-info">
+            <h3 class="box-title">Gün Sonu (Kasa)</h3>
+            <ul class="list-inline two-part">
+                <li><i class="icon-feed text-info"></i></li>
+                <li class="text-right"> ₺ <span class="counter">@cashbook.CashEnd</span></li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="white-box b-l-warning">
+            <h3 class="box-title">Ciro</h3>
+            <ul class="list-inline two-part">
+                <li><i class="icon-feed text-warning"></i></li>
+                <li class="text-right"> ₺ <span>@cashbook.Turnover</span></li>
+            </ul>
+        </div>
+    </div>
+    @*
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="white-box">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    *@
+
+</div>

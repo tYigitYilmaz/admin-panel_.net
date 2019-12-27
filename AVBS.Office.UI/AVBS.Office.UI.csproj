@@ -1,0 +1,907 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{83F49DBA-30CD-4B2A-B1AA-79BB5E5F0FD6}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AVBS.Office.UI</RootNamespace>
+    <AssemblyName>AVBS.Office.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework6.Npgsql, Version=3.1.1.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\EntityFramework6.Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MoreLinq, Version=2.10.21623.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.2.10.0\lib\net40\MoreLinq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Npgsql, Version=4.0.2.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.4.0.2\lib\net451\Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Svg, Version=2.2.1.39233, Culture=neutral, PublicKeyToken=12a0bac221edeae2, processorArchitecture=MSIL">
+      <HintPath>..\packages\Svg.2.3.0\lib\net35\Svg.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Data\AuthorizeRolesAttribute.cs" />
+    <Compile Include="App_Data\AuthenticationAttribute.cs" />
+    <Compile Include="App_Data\UserCacheAttribute.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Base\OfficeController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Areas\References\Controllers\CourtTypesController.cs" />
+    <Compile Include="Areas\References\Controllers\FileStatusesController.cs" />
+    <Compile Include="Areas\References\Controllers\FileTypesController.cs" />
+    <Compile Include="Areas\References\ReferencesAreaRegistration.cs" />
+    <Compile Include="Controllers\Base\BaseController.cs" />
+    <Compile Include="Controllers\Base\IController.cs" />
+    <Compile Include="Controllers\Base\IOfficeReferenceController.cs" />
+    <Compile Include="Controllers\Base\IReferenceController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\PersonnelController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PageController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\CookieOperation.cs" />
+    <Compile Include="Helper\UserHelper.cs" />
+    <Compile Include="Helper\DateHelper.cs" />
+    <Compile Include="Models\CashBookPageParam.cs" />
+    <Compile Include="Models\CookieObject.cs" />
+    <Compile Include="Models\DashboardModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\NotificationModel.cs" />
+    <Compile Include="Models\Ticket\TicketAttachmentModel.cs" />
+    <Compile Include="Models\Ticket\TicketModel.cs" />
+    <Compile Include="Models\User\PasswordModel.cs" />
+    <Compile Include="Models\User\ClientModel.cs" />
+    <Compile Include="Models\User\UserTableModel.cs" />
+    <Compile Include="Models\User\UserSessionModel.cs" />
+    <Compile Include="Models\User\UserModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bootstrap\dist\css\bootstrap.min.css" />
+    <Content Include="bootstrap\dist\js\bootstrap-3.3.7.min.js" />
+    <Content Include="bootstrap\dist\js\bootstrap.min.js" />
+    <Content Include="bootstrap\dist\js\tether.min.js" />
+    <Content Include="Content\favicon.ico" />
+    <Content Include="Content\img\logo2.png" />
+    <Content Include="Content\Login\css\bootstrap.min.css" />
+    <Content Include="Content\Login\css\style.css" />
+    <Content Include="Content\Login\images\analytics.png" />
+    <Content Include="Content\Login\images\background.jpg" />
+    <Content Include="Content\Login\images\carousel-b.jpg" />
+    <Content Include="Content\Login\images\heatmap.png" />
+    <Content Include="Content\Login\images\logo2.png" />
+    <Content Include="Content\Login\images\monitoring.png" />
+    <Content Include="Content\Login\images\multi-platforms.png" />
+    <Content Include="Content\Login\js\bootstrap.min.js" />
+    <Content Include="Content\Login\js\jquery-3.3.1.slim.min.js" />
+    <Content Include="Content\Login\js\popper.min.js" />
+    <Content Include="css\animate.css" />
+    <Content Include="css\chartist.min.css" />
+    <Content Include="css\chartist_override.css" />
+    <Content Include="css\colors\blue.css" />
+    <Content Include="css\colors\default.css" />
+    <Content Include="css\custom.css" />
+    <Content Include="css\google-map.css" />
+    <Content Include="js\chartist.min.js" />
+    <Content Include="js\custom-leaflet.js" />
+    <Content Include="js\leaflet-pin\js\floorplan.js" />
+    <Content Include="js\mask.init.js" />
+    <Content Include="plugins\bower_components\jquery-nicescroll\jquery.nicescroll.min.js" />
+    <Content Include="plugins\charts\echarts\echarts-all.js" />
+    <Content Include="plugins\charts\echarts\echarts-init.js" />
+    <Content Include="plugins\d3-svg-overlay\L.D3SvgOverlay.min.js" />
+    <Content Include="plugins\heatmap\heatmap.js" />
+    <Content Include="plugins\heatmap\heatmap.min.js" />
+    <Content Include="plugins\heatmap\heatmap_test.js" />
+    <Content Include="js\seedrandom.min.js" />
+    <Content Include="plugins\bower_components\amcharts\amcharts.js" />
+    <Content Include="plugins\bower_components\amcharts\pie.js" />
+    <Content Include="plugins\bower_components\amcharts\plugins\export\export.css" />
+    <Content Include="plugins\bower_components\amcharts\plugins\export\export.min.js" />
+    <Content Include="plugins\bower_components\amcharts\themes\black.js" />
+    <Content Include="plugins\bower_components\amcharts\themes\chalk.js" />
+    <Content Include="plugins\bower_components\amcharts\themes\dark.js" />
+    <Content Include="plugins\bower_components\amcharts\themes\light.js" />
+    <Content Include="plugins\bower_components\amcharts\themes\patterns.js" />
+    <Content Include="plugins\google-map\google-map2.js" />
+    <Content Include="plugins\google-map\search-box.css" />
+    <Content Include="css\spinners.css" />
+    <Content Include="css\custom-table.css" />
+    <Content Include="css\style.css" />
+    <Content Include="Global.asax" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Images\no-profile-image.png" />
+    <Content Include="plugins\google-map\google-map.js" />
+    <Content Include="js\locationpicker.jquery.js" />
+    <Content Include="js\cbpFWTabs.js" />
+    <Content Include="js\custom-table.js" />
+    <Content Include="js\chat.js" />
+    <Content Include="js\custom.min.js" />
+    <Content Include="js\dashboard1.js" />
+    <Content Include="js\dashboard2.js" />
+    <Content Include="js\dashboard3.js" />
+    <Content Include="js\dashboard4.js" />
+    <Content Include="js\flot-data.js" />
+    <Content Include="js\footable-init.js" />
+    <Content Include="js\jasny-bootstrap.js" />
+    <Content Include="js\jquery.PrintArea.js" />
+    <Content Include="js\jquery.slimscroll.js" />
+    <Content Include="js\jsgrid-init.js" />
+    <Content Include="js\morris-data.js" />
+    <Content Include="js\toastr.js" />
+    <Content Include="js\validator.js" />
+    <Content Include="js\waves.js" />
+    <Content Include="js\widget.js" />
+    <Content Include="less\icons\font-awesome\fonts\fontawesome-webfont3295.svg" />
+    <Content Include="less\icons\linea-icons\fonts\linea-arrows-10.svg" />
+    <Content Include="less\icons\linea-icons\fonts\linea-basic-10.svg" />
+    <Content Include="less\icons\linea-icons\fonts\linea-basic-elaboration-10.svg" />
+    <Content Include="less\icons\linea-icons\fonts\linea-ecommerce-10.svg" />
+    <Content Include="less\icons\linea-icons\fonts\linea-music-10.svg" />
+    <Content Include="less\icons\linea-icons\fonts\linea-software-10.svg" />
+    <Content Include="less\icons\linea-icons\fonts\linea-weather-10.svg" />
+    <Content Include="less\icons\simple-line-icons\fonts\Simple-Line-Icons4c82.svg" />
+    <Content Include="less\icons\themify-icons\fonts\themifyd41d.svg" />
+    <Content Include="less\icons\weather-icons\font\weathericons-regular-webfont.svg" />
+    <Content Include="js\leaflet-pin\css\style.css" />
+    <Content Include="js\leaflet-pin\js\tracker-live.js" />
+    <Content Include="plugins\bower_components\blockUI\jquery.blockUI.js" />
+    <Content Include="plugins\bower_components\bootstrap-datepicker\bootstrap-datepicker.min.css" />
+    <Content Include="plugins\bower_components\bootstrap-datepicker\bootstrap-datepicker.min.js" />
+    <Content Include="plugins\bower_components\bootstrap-daterangepicker\daterangepicker.css" />
+    <Content Include="plugins\bower_components\bootstrap-daterangepicker\daterangepicker.js" />
+    <Content Include="plugins\bower_components\bootstrap-extension\css\bootstrap-extension.css" />
+    <Content Include="plugins\bower_components\bootstrap-extension\js\bootstrap-extension.min.js" />
+    <Content Include="plugins\bower_components\bootstrap-select\bootstrap-select.min.css" />
+    <Content Include="plugins\bower_components\bootstrap-select\bootstrap-select.min.js" />
+    <Content Include="plugins\bower_components\bootstrap-switch\bootstrap-switch.min.css" />
+    <Content Include="plugins\bower_components\bootstrap-switch\bootstrap-switch.min.js" />
+    <Content Include="plugins\bower_components\bootstrap-table\dist\bootstrap-table.ints.js" />
+    <Content Include="plugins\bower_components\bootstrap-table\dist\bootstrap-table.min.css" />
+    <Content Include="plugins\bower_components\bootstrap-table\dist\bootstrap-table.min.js" />
+    <Content Include="plugins\bower_components\bootstrap-tagsinput\dist\bootstrap-tagsinput.css" />
+    <Content Include="plugins\bower_components\bootstrap-tagsinput\dist\bootstrap-tagsinput.min.js" />
+    <Content Include="plugins\bower_components\bootstrap-touchspin\dist\jquery.bootstrap-touchspin.min.css" />
+    <Content Include="plugins\bower_components\bootstrap-touchspin\dist\jquery.bootstrap-touchspin.min.js" />
+    <Content Include="plugins\bower_components\bootstrap-treeview-master\dist\bootstrap-treeview-init.js" />
+    <Content Include="plugins\bower_components\bootstrap-treeview-master\dist\bootstrap-treeview.min.js" />
+    <Content Include="plugins\bower_components\calendar\dist\cal-init.js" />
+    <Content Include="plugins\bower_components\calendar\dist\fullcalendar.css" />
+    <Content Include="plugins\bower_components\calendar\dist\fullcalendar.min.js" />
+    <Content Include="plugins\bower_components\calendar\jquery-ui.min.js" />
+    <Content Include="plugins\bower_components\Chart.js\Chart.min.js" />
+    <Content Include="plugins\bower_components\Chart.js\chartjs.init.js" />
+    <Content Include="plugins\bower_components\clockpicker\dist\jquery-clockpicker.min.css" />
+    <Content Include="plugins\bower_components\clockpicker\dist\jquery-clockpicker.min.js" />
+    <Content Include="plugins\bower_components\counterup\jquery.counterup.min.js" />
+    <Content Include="plugins\bower_components\cropper\cropper-init.js" />
+    <Content Include="plugins\bower_components\cropper\cropper.min.css" />
+    <Content Include="plugins\bower_components\cropper\cropper.min.js" />
+    <Content Include="plugins\bower_components\css-chart\css-chart.css" />
+    <Content Include="plugins\bower_components\custom-select\custom-select.css" />
+    <Content Include="plugins\bower_components\custom-select\custom-select.min.js" />
+    <Content Include="plugins\bower_components\custom-select\select2-spinner.html" />
+    <Content Include="plugins\bower_components\custom-select\select2.png" />
+    <Content Include="plugins\bower_components\custom-select\select2x2.html" />
+    <Content Include="plugins\bower_components\datatables\dataTables.bootstrap.js" />
+    <Content Include="plugins\bower_components\datatables\jquery.dataTables.min.css" />
+    <Content Include="plugins\bower_components\datatables\jquery.dataTables.min.js" />
+    <Content Include="plugins\bower_components\datatables\sort_asc.png" />
+    <Content Include="plugins\bower_components\datatables\sort_asc_disabled.png" />
+    <Content Include="plugins\bower_components\datatables\sort_both.png" />
+    <Content Include="plugins\bower_components\datatables\sort_desc.png" />
+    <Content Include="plugins\bower_components\datatables\sort_desc_disabled.png" />
+    <Content Include="plugins\bower_components\date-paginator\bootstrap-datepaginator.min.js" />
+    <Content Include="plugins\bower_components\date-paginator\moment.min.js" />
+    <Content Include="plugins\bower_components\dropify\dist\css\dropify.min.css" />
+    <Content Include="plugins\bower_components\dropify\dist\js\dropify.min.js" />
+    <Content Include="plugins\bower_components\dropify\src\images\test-image-1.jpg" />
+    <Content Include="plugins\bower_components\dropify\src\images\test-image-2.jpg" />
+    <Content Include="plugins\bower_components\dropzone-master\dist\dropzone.css" />
+    <Content Include="plugins\bower_components\dropzone-master\dist\dropzone.js" />
+    <Content Include="plugins\bower_components\fancybox\ekko-lightbox.min.css" />
+    <Content Include="plugins\bower_components\fancybox\ekko-lightbox.min.js" />
+    <Content Include="plugins\bower_components\flot.tooltip\js\jquery.flot.tooltip.min.js" />
+    <Content Include="plugins\bower_components\flot\excanvas.min.js" />
+    <Content Include="plugins\bower_components\flot\jquery.flot.crosshair.js" />
+    <Content Include="plugins\bower_components\flot\jquery.flot.js" />
+    <Content Include="plugins\bower_components\flot\jquery.flot.pie.js" />
+    <Content Include="plugins\bower_components\flot\jquery.flot.stack.js" />
+    <Content Include="plugins\bower_components\flot\jquery.flot.time.js" />
+    <Content Include="plugins\bower_components\footable\css\fonts\footable.svg" />
+    <Content Include="plugins\bower_components\footable\css\footable.core.css" />
+    <Content Include="plugins\bower_components\footable\js\footable.all.min.js" />
+    <Content Include="plugins\bower_components\gallery\css\animated-masonry-gallery.css" />
+    <Content Include="plugins\bower_components\gallery\js\animated-masonry-gallery.js" />
+    <Content Include="plugins\bower_components\gallery\js\jquery.isotope.min.js" />
+    <Content Include="plugins\bower_components\gmaps\gmaps.min.js" />
+    <Content Include="plugins\bower_components\gmaps\jquery.gmaps.js" />
+    <Content Include="plugins\bower_components\gridstack\gridstack.css" />
+    <Content Include="plugins\bower_components\gridstack\gridstack.jQueryUI.js" />
+    <Content Include="plugins\bower_components\gridstack\gridstack.js" />
+    <Content Include="plugins\bower_components\horizontal-timeline\css\horizontal-timeline.css" />
+    <Content Include="plugins\bower_components\horizontal-timeline\js\horizontal-timeline.js" />
+    <Content Include="plugins\bower_components\html5-editor\bootstrap-wysihtml5.css" />
+    <Content Include="plugins\bower_components\html5-editor\bootstrap-wysihtml5.js" />
+    <Content Include="plugins\bower_components\html5-editor\wysihtml5-0.3.0.js" />
+    <Content Include="plugins\bower_components\icheck\icheck.init.js" />
+    <Content Include="plugins\bower_components\icheck\icheck.min.js" />
+    <Content Include="plugins\bower_components\icheck\skins\all.css" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\aero%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\aero.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\blue%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\blue.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\flat%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\flat.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\green%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\green.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\grey%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\grey.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\orange%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\orange.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\pink%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\pink.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\purple%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\purple.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\red%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\red.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\yellow%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\yellow.png" />
+    <Content Include="plugins\bower_components\icheck\skins\flat\_all.css" />
+    <Content Include="plugins\bower_components\icheck\skins\futurico\futurico%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\futurico\futurico.css" />
+    <Content Include="plugins\bower_components\icheck\skins\futurico\futurico.png" />
+    <Content Include="plugins\bower_components\icheck\skins\line\line%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\line\line.png" />
+    <Content Include="plugins\bower_components\icheck\skins\line\_all.css" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\aero%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\aero.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\blue%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\blue.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\green%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\green.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\grey%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\grey.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\minimal%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\minimal.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\orange%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\orange.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\pink%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\pink.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\purple%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\purple.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\red%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\red.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\yellow%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\yellow.png" />
+    <Content Include="plugins\bower_components\icheck\skins\minimal\_all.css" />
+    <Content Include="plugins\bower_components\icheck\skins\polaris\polaris%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\polaris\polaris.css" />
+    <Content Include="plugins\bower_components\icheck\skins\polaris\polaris.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\aero%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\aero.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\blue%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\blue.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\green%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\green.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\grey%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\grey.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\orange%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\orange.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\pink%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\pink.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\purple%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\purple.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\red%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\red.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\square%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\square.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\yellow%402x.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\yellow.png" />
+    <Content Include="plugins\bower_components\icheck\skins\square\_all.css" />
+    <Content Include="plugins\bower_components\ion-rangeslider\css\ion.rangeSlider.css" />
+    <Content Include="plugins\bower_components\ion-rangeslider\css\ion.rangeSlider.skinModern.css" />
+    <Content Include="plugins\bower_components\ion-rangeslider\img\sprite-skin-modern.png" />
+    <Content Include="plugins\bower_components\ion-rangeslider\js\ion-rangeSlider\ion.rangeSlider-init.js" />
+    <Content Include="plugins\bower_components\ion-rangeslider\js\ion-rangeSlider\ion.rangeSlider.min.js" />
+    <Content Include="plugins\bower_components\jquery-asColorPicker-master\css\asColorPicker.css" />
+    <Content Include="plugins\bower_components\jquery-asColorPicker-master\dist\jquery-asColorPicker.min.js" />
+    <Content Include="plugins\bower_components\jquery-asColorPicker-master\images\alpha.png" />
+    <Content Include="plugins\bower_components\jquery-asColorPicker-master\images\hue.png" />
+    <Content Include="plugins\bower_components\jquery-asColorPicker-master\images\saturation.png" />
+    <Content Include="plugins\bower_components\jquery-asColorPicker-master\images\transparent.png" />
+    <Content Include="plugins\bower_components\jquery-asColorPicker-master\libs\jquery-asColor.js" />
+    <Content Include="plugins\bower_components\jquery-asColorPicker-master\libs\jquery-asGradient.js" />
+    <Content Include="plugins\bower_components\jquery-datatables-editable\datatables.css" />
+    <Content Include="plugins\bower_components\jquery-datatables-editable\jquery.dataTables.js" />
+    <Content Include="plugins\bower_components\jquery-sparkline\jquery.charts-sparkline.js" />
+    <Content Include="plugins\bower_components\jquery-sparkline\jquery.sparkline.min.js" />
+    <Content Include="plugins\bower_components\jquery-wizard-master\css\wizard.css" />
+    <Content Include="plugins\bower_components\jquery-wizard-master\dist\jquery-wizard.min.js" />
+    <Content Include="plugins\bower_components\jquery-wizard-master\libs\formvalidation\bootstrap.min.js" />
+    <Content Include="plugins\bower_components\jquery-wizard-master\libs\formvalidation\formValidation.min.css" />
+    <Content Include="plugins\bower_components\jquery-wizard-master\libs\formvalidation\formValidation.min.js" />
+    <Content Include="plugins\bower_components\jquery.easy-pie-chart\dist\jquery.easypiechart.min.js" />
+    <Content Include="plugins\bower_components\jquery.easy-pie-chart\easy-pie-chart.init.js" />
+    <Content Include="plugins\bower_components\jqueryui\images\ui-icons_444444_256x240.png" />
+    <Content Include="plugins\bower_components\jqueryui\images\ui-icons_555555_256x240.png" />
+    <Content Include="plugins\bower_components\jqueryui\images\ui-icons_777620_256x240.png" />
+    <Content Include="plugins\bower_components\jqueryui\images\ui-icons_777777_256x240.png" />
+    <Content Include="plugins\bower_components\jqueryui\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="plugins\bower_components\jqueryui\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="plugins\bower_components\jqueryui\jquery-ui.min.css" />
+    <Content Include="plugins\bower_components\jqueryui\jquery-ui.min.js" />
+    <Content Include="plugins\bower_components\jquery\dist\jquery.min.js" />
+    <Content Include="plugins\bower_components\jsgrid\db.js" />
+    <Content Include="plugins\bower_components\jsgrid\dist\jsgrid-theme.min.css" />
+    <Content Include="plugins\bower_components\jsgrid\dist\jsgrid.min.css" />
+    <Content Include="plugins\bower_components\jsgrid\dist\jsgrid.min.js" />
+    <Content Include="plugins\bower_components\knob\jquery.knob.js" />
+    <Content Include="plugins\bower_components\lobipanel\dist\css\lobipanel.min.css" />
+    <Content Include="plugins\bower_components\lobipanel\dist\js\lobipanel.min.js" />
+    <Content Include="plugins\bower_components\Magnific-Popup-master\dist\jquery.magnific-popup-init.js" />
+    <Content Include="plugins\bower_components\Magnific-Popup-master\dist\jquery.magnific-popup.min.js" />
+    <Content Include="plugins\bower_components\Magnific-Popup-master\dist\magnific-popup.css" />
+    <Content Include="plugins\bower_components\moment\moment.js" />
+    <Content Include="plugins\bower_components\morrisjs\morris.css" />
+    <Content Include="plugins\bower_components\morrisjs\morris.js" />
+    <Content Include="plugins\bower_components\multiselect\css\multi-select.css" />
+    <Content Include="plugins\bower_components\multiselect\img\switch.png" />
+    <Content Include="plugins\bower_components\multiselect\js\jquery.multi-select.js" />
+    <Content Include="plugins\bower_components\nestable\jquery.nestable.js" />
+    <Content Include="plugins\bower_components\nestable\nestable.css" />
+    <Content Include="plugins\bower_components\owl.carousel\owl.carousel.min.css" />
+    <Content Include="plugins\bower_components\owl.carousel\owl.carousel.min.js" />
+    <Content Include="plugins\bower_components\owl.carousel\owl.custom.js" />
+    <Content Include="plugins\bower_components\owl.carousel\owl.theme.default.css" />
+    <Content Include="plugins\bower_components\owl.carousel\owl.video.play.html" />
+    <Content Include="plugins\bower_components\peity\jquery.peity.init.js" />
+    <Content Include="plugins\bower_components\peity\jquery.peity.min.js" />
+    <Content Include="plugins\bower_components\prism\prism.css" />
+    <Content Include="plugins\bower_components\prism\prism.js" />
+    <Content Include="plugins\bower_components\raphael\raphael-min.js" />
+    <Content Include="plugins\bower_components\register-steps\jquery.easing.min.js" />
+    <Content Include="plugins\bower_components\register-steps\register-init.js" />
+    <Content Include="plugins\bower_components\register-steps\steps.css" />
+    <Content Include="plugins\bower_components\session-timeout\idle\jquery.idletimeout.js" />
+    <Content Include="plugins\bower_components\session-timeout\idle\jquery.idletimer.js" />
+    <Content Include="plugins\bower_components\session-timeout\idle\session-timeout-idle-init.js" />
+    <Content Include="plugins\bower_components\session-timeout\jquery.sessionTimeout.min.js" />
+    <Content Include="plugins\bower_components\session-timeout\session-timeout-init.js" />
+    <Content Include="plugins\bower_components\sidebar-nav\dist\sidebar-nav.min.css" />
+    <Content Include="plugins\bower_components\sidebar-nav\dist\sidebar-nav.min.js" />
+    <Content Include="plugins\bower_components\skycons\skycons.js" />
+    <Content Include="plugins\bower_components\styleswitcher\jQuery.style.switcher.js" />
+    <Content Include="plugins\bower_components\summernote\dist\summernote.css" />
+    <Content Include="plugins\bower_components\summernote\dist\summernote.min.js" />
+    <Content Include="plugins\bower_components\sweetalert\jquery.sweet-alert.custom.js" />
+    <Content Include="plugins\bower_components\sweetalert\sweetalert.css" />
+    <Content Include="plugins\bower_components\sweetalert\sweetalert.min.js" />
+    <Content Include="plugins\bower_components\switchery\dist\switchery.min.css" />
+    <Content Include="plugins\bower_components\switchery\dist\switchery.min.js" />
+    <Content Include="plugins\bower_components\tablesaw-master\dist\tablesaw-init.js" />
+    <Content Include="plugins\bower_components\tablesaw-master\dist\tablesaw.css" />
+    <Content Include="plugins\bower_components\tablesaw-master\dist\tablesaw.js" />
+    <Content Include="plugins\bower_components\timepicker\bootstrap-timepicker.min.css" />
+    <Content Include="plugins\bower_components\timepicker\bootstrap-timepicker.min.js" />
+    <Content Include="plugins\bower_components\tiny-editable\mindmup-editabletable.js" />
+    <Content Include="plugins\bower_components\tiny-editable\numeric-input-example.js" />
+    <Content Include="plugins\bower_components\tinymce\tinymce.min.js" />
+    <Content Include="plugins\bower_components\toast-master\css\jquery.toast.css" />
+    <Content Include="plugins\bower_components\toast-master\js\jquery.toast.js" />
+    <Content Include="plugins\bower_components\typeahead.js-master\dist\typeahead-init.js" />
+    <Content Include="plugins\bower_components\typeahead.js-master\dist\typeahead.bundle.min.js" />
+    <Content Include="plugins\bower_components\typeahead.js-master\dist\typehead-min.css" />
+    <Content Include="plugins\bower_components\vectormap\jquery-jvectormap-2.0.2.css" />
+    <Content Include="plugins\bower_components\vectormap\jquery-jvectormap-2.0.2.min.js" />
+    <Content Include="plugins\bower_components\vectormap\jquery-jvectormap-au-mill.js" />
+    <Content Include="plugins\bower_components\vectormap\jquery-jvectormap-in-mill.js" />
+    <Content Include="plugins\bower_components\vectormap\jquery-jvectormap-uk-mill-en.js" />
+    <Content Include="plugins\bower_components\vectormap\jquery-jvectormap-us-aea-en.js" />
+    <Content Include="plugins\bower_components\vectormap\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="plugins\bower_components\vectormap\jvectormap.custom.js" />
+    <Content Include="plugins\bower_components\waypoints\lib\jquery.waypoints.js" />
+    <Content Include="plugins\bower_components\x-editable\dist\bootstrap3-editable\css\bootstrap-editable.css" />
+    <Content Include="plugins\bower_components\x-editable\dist\bootstrap3-editable\img\clear.png" />
+    <Content Include="plugins\bower_components\x-editable\dist\bootstrap3-editable\img\loading.gif" />
+    <Content Include="plugins\bower_components\x-editable\dist\bootstrap3-editable\js\bootstrap-editable.min.js" />
+    <Content Include="plugins\images\alert.png" />
+    <Content Include="plugins\images\alert2.png" />
+    <Content Include="plugins\images\alert3.png" />
+    <Content Include="plugins\images\alert4.png" />
+    <Content Include="plugins\images\alert5.png" />
+    <Content Include="plugins\images\alert6.png" />
+    <Content Include="plugins\images\alert7.png" />
+    <Content Include="plugins\images\assets\landscape1.jpg" />
+    <Content Include="plugins\images\assets\landscape10.jpg" />
+    <Content Include="plugins\images\assets\landscape11.jpg" />
+    <Content Include="plugins\images\assets\landscape12.jpg" />
+    <Content Include="plugins\images\assets\landscape13.jpg" />
+    <Content Include="plugins\images\assets\landscape14.jpg" />
+    <Content Include="plugins\images\assets\landscape15.jpg" />
+    <Content Include="plugins\images\assets\landscape16.jpg" />
+    <Content Include="plugins\images\assets\landscape17.jpg" />
+    <Content Include="plugins\images\assets\landscape18.jpg" />
+    <Content Include="plugins\images\assets\landscape2.jpg" />
+    <Content Include="plugins\images\assets\landscape3.jpg" />
+    <Content Include="plugins\images\assets\landscape4.jpg" />
+    <Content Include="plugins\images\assets\landscape5.jpg" />
+    <Content Include="plugins\images\assets\landscape6.jpg" />
+    <Content Include="plugins\images\assets\landscape7.jpg" />
+    <Content Include="plugins\images\assets\landscape8.jpg" />
+    <Content Include="plugins\images\assets\landscape9.jpg" />
+    <Content Include="plugins\images\assets\studio1.jpg" />
+    <Content Include="plugins\images\assets\studio10.jpg" />
+    <Content Include="plugins\images\assets\studio11.jpg" />
+    <Content Include="plugins\images\assets\studio12.jpg" />
+    <Content Include="plugins\images\assets\studio13.jpg" />
+    <Content Include="plugins\images\assets\studio14.jpg" />
+    <Content Include="plugins\images\assets\studio15.jpg" />
+    <Content Include="plugins\images\assets\studio16.jpg" />
+    <Content Include="plugins\images\assets\studio17.jpg" />
+    <Content Include="plugins\images\assets\studio18.jpg" />
+    <Content Include="plugins\images\assets\studio19.jpg" />
+    <Content Include="plugins\images\assets\studio2.jpg" />
+    <Content Include="plugins\images\assets\studio20.jpg" />
+    <Content Include="plugins\images\assets\studio21.jpg" />
+    <Content Include="plugins\images\assets\studio22.jpg" />
+    <Content Include="plugins\images\assets\studio23.jpg" />
+    <Content Include="plugins\images\assets\studio24.jpg" />
+    <Content Include="plugins\images\assets\studio25.jpg" />
+    <Content Include="plugins\images\assets\studio26.jpg" />
+    <Content Include="plugins\images\assets\studio27.jpg" />
+    <Content Include="plugins\images\assets\studio3.jpg" />
+    <Content Include="plugins\images\assets\studio4.jpg" />
+    <Content Include="plugins\images\assets\studio5.jpg" />
+    <Content Include="plugins\images\assets\studio6.jpg" />
+    <Content Include="plugins\images\assets\studio7.jpg" />
+    <Content Include="plugins\images\assets\studio8.jpg" />
+    <Content Include="plugins\images\assets\studio9.jpg" />
+    <Content Include="plugins\images\big\circle.jpg" />
+    <Content Include="plugins\images\big\img1.jpg" />
+    <Content Include="plugins\images\big\img2.jpg" />
+    <Content Include="plugins\images\big\img3.jpg" />
+    <Content Include="plugins\images\big\img4.jpg" />
+    <Content Include="plugins\images\big\img5.jpg" />
+    <Content Include="plugins\images\big\img6.jpg" />
+    <Content Include="plugins\images\cards\1.jpg" />
+    <Content Include="plugins\images\cards\2.jpg" />
+    <Content Include="plugins\images\cards\3.jpg" />
+    <Content Include="plugins\images\cards\4.jpg" />
+    <Content Include="plugins\images\cards\5.jpg" />
+    <Content Include="plugins\images\cards\6.jpg" />
+    <Content Include="plugins\images\cards\7.jpg" />
+    <Content Include="plugins\images\docs\sidebar.jpg" />
+    <Content Include="plugins\images\docs\template-structure.jpg" />
+    <Content Include="plugins\images\favicon.ico" />
+    <Content Include="plugins\images\favicon.png" />
+    <Content Include="plugins\images\heading-bg\slide1.jpg" />
+    <Content Include="plugins\images\heading-bg\slide2.jpg" />
+    <Content Include="plugins\images\heading-bg\slide3.jpg" />
+    <Content Include="plugins\images\heading-bg\slide4.jpg" />
+    <Content Include="plugins\images\heading-bg\slide6.jpg" />
+    <Content Include="plugins\images\img1.jpg" />
+    <Content Include="plugins\images\img2.jpg" />
+    <Content Include="plugins\images\img3.jpg" />
+    <Content Include="plugins\images\large\img1.jpg" />
+    <Content Include="plugins\images\large\img2.jpg" />
+    <Content Include="plugins\images\large\img3.jpg" />
+    <Content Include="plugins\images\large\img4.jpg" />
+    <Content Include="plugins\images\large\img5.jpg" />
+    <Content Include="plugins\images\large\img6.jpg" />
+    <Content Include="plugins\images\logo.png" />
+    <Content Include="plugins\images\logo_small.png" />
+    <Content Include="plugins\images\model.png" />
+    <Content Include="plugins\images\model2.png" />
+    <Content Include="plugins\images\model3.png" />
+    <Content Include="plugins\images\monty-logo-small.jpg" />
+    <Content Include="plugins\images\news\slide1.jpg" />
+    <Content Include="plugins\images\tooltip\Euclid.png" />
+    <Content Include="plugins\images\users\1.jpg" />
+    <Content Include="plugins\images\users\2.jpg" />
+    <Content Include="plugins\images\users\3.jpg" />
+    <Content Include="plugins\images\users\4.jpg" />
+    <Content Include="plugins\images\users\5.jpg" />
+    <Content Include="plugins\images\users\6.jpg" />
+    <Content Include="plugins\images\users\7.jpg" />
+    <Content Include="plugins\images\users\8.jpg" />
+    <Content Include="plugins\images\users\arijit.jpg" />
+    <Content Include="plugins\images\users\genu.jpg" />
+    <Content Include="plugins\images\users\govinda.jpg" />
+    <Content Include="plugins\images\users\hritik.jpg" />
+    <Content Include="plugins\images\users\john.jpg" />
+    <Content Include="plugins\images\users\pawandeep.jpg" />
+    <Content Include="plugins\images\users\ritesh.jpg" />
+    <Content Include="plugins\images\users\salman.jpg" />
+    <Content Include="plugins\images\users\sonu.jpg" />
+    <Content Include="plugins\images\users\varun.jpg" />
+    <Content Include="plugins\heatmap\svg-area-heatmap.js" />
+    <Content Include="plugins\heatmap\leaflet-heatmap.js" />
+    <Content Include="plugins\inputmask\jquery.inputmask.bundle.js" />
+    <Content Include="plugins\jqBootstrapValidation\jqBootstrapValidation.js" />
+    <Content Include="plugins\leaflet\images\layers-2x.png" />
+    <Content Include="plugins\leaflet\images\layers.png" />
+    <Content Include="plugins\leaflet\images\marker-icon-2x.png" />
+    <Content Include="plugins\leaflet\images\marker-icon.png" />
+    <Content Include="plugins\leaflet\images\marker-shadow.png" />
+    <Content Include="plugins\leaflet\leaflet-src.esm.js" />
+    <Content Include="plugins\leaflet\leaflet-src.js" />
+    <Content Include="plugins\leaflet\leaflet.css" />
+    <Content Include="plugins\leaflet\leaflet.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\References\Models\" />
+    <Folder Include="Images\UserImages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="less\icons\font-awesome\fonts\fontawesome-webfont3295.eot" />
+    <Content Include="less\icons\font-awesome\fonts\fontawesome-webfont3295.ttf" />
+    <Content Include="less\icons\font-awesome\fonts\fontawesome-webfont3295.woff" />
+    <Content Include="less\icons\font-awesome\fonts\fontawesome-webfont3295.woff2" />
+    <Content Include="less\icons\font-awesome\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="less\icons\linea-icons\fonts\linea-arrows-10.eot" />
+    <Content Include="less\icons\linea-icons\fonts\linea-arrows-10.ttf" />
+    <Content Include="less\icons\linea-icons\fonts\linea-arrows-10.woff" />
+    <Content Include="less\icons\linea-icons\fonts\linea-arrows-10d41d.eot" />
+    <Content Include="less\icons\linea-icons\fonts\linea-basic-10.eot" />
+    <Content Include="less\icons\linea-icons\fonts\linea-basic-10.ttf" />
+    <Content Include="less\icons\linea-icons\fonts\linea-basic-10.woff" />
+    <Content Include="less\icons\linea-icons\fonts\linea-basic-10d41d.eot" />
+    <Content Include="less\icons\linea-icons\fonts\linea-basic-elaboration-10.eot" />
+    <Content Include="less\icons\linea-icons\fonts\linea-basic-elaboration-10.ttf" />
+    <Content Include="less\icons\linea-icons\fonts\linea-basic-elaboration-10.woff" />
+    <Content Include="less\icons\linea-icons\fonts\linea-basic-elaboration-10d41d.eot" />
+    <Content Include="less\icons\linea-icons\fonts\linea-ecommerce-10.eot" />
+    <Content Include="less\icons\linea-icons\fonts\linea-ecommerce-10.ttf" />
+    <Content Include="less\icons\linea-icons\fonts\linea-ecommerce-10.woff" />
+    <Content Include="less\icons\linea-icons\fonts\linea-ecommerce-10d41d.eot" />
+    <Content Include="less\icons\linea-icons\fonts\linea-music-10.eot" />
+    <Content Include="less\icons\linea-icons\fonts\linea-music-10.ttf" />
+    <Content Include="less\icons\linea-icons\fonts\linea-music-10.woff" />
+    <Content Include="less\icons\linea-icons\fonts\linea-music-10d41d.eot" />
+    <Content Include="less\icons\linea-icons\fonts\linea-software-10.eot" />
+    <Content Include="less\icons\linea-icons\fonts\linea-software-10.ttf" />
+    <Content Include="less\icons\linea-icons\fonts\linea-software-10.woff" />
+    <Content Include="less\icons\linea-icons\fonts\linea-software-10d41d.eot" />
+    <Content Include="less\icons\linea-icons\fonts\linea-weather-10.eot" />
+    <Content Include="less\icons\linea-icons\fonts\linea-weather-10.ttf" />
+    <Content Include="less\icons\linea-icons\fonts\linea-weather-10.woff" />
+    <Content Include="less\icons\linea-icons\fonts\linea-weather-10d41d.eot" />
+    <Content Include="less\icons\simple-line-icons\fonts\Simple-Line-Icons4c82.eot" />
+    <Content Include="less\icons\simple-line-icons\fonts\Simple-Line-Icons4c82.ttf" />
+    <Content Include="less\icons\simple-line-icons\fonts\Simple-Line-Icons4c82.woff" />
+    <Content Include="less\icons\simple-line-icons\fonts\Simple-Line-Icons4c82.woff2" />
+    <Content Include="less\icons\simple-line-icons\fonts\Simple-Line-Iconsd41d.eot" />
+    <Content Include="less\icons\themify-icons\fonts\themify.woff" />
+    <Content Include="less\icons\themify-icons\fonts\themifyd41d.eot" />
+    <Content Include="less\icons\themify-icons\fonts\themifyd41d.ttf" />
+    <Content Include="less\icons\weather-icons\font\weathericons-regular-webfont.eot" />
+    <Content Include="less\icons\weather-icons\font\weathericons-regular-webfont.ttf" />
+    <Content Include="less\icons\weather-icons\font\weathericons-regular-webfont.woff" />
+    <Content Include="less\icons\weather-icons\font\weathericons-regular-webfont.woff2" />
+    <Content Include="less\icons\weather-icons\font\weathericons-regular-webfontd41d.eot" />
+    <Content Include="Content\Login\fonts\PoiretOne-Regular.ttf" />
+    <Content Include="Content\Login\fonts\SourceSansPro-Regular.ttf" />
+    <Content Include="Areas\References\Views\FileTypes\Create.cshtml" />
+    <Content Include="Areas\References\Views\FileTypes\CreateWithReturn.cshtml" />
+    <Content Include="Areas\References\Views\FileTypes\Edit.cshtml" />
+    <Content Include="Areas\References\Views\FileTypes\Index.cshtml" />
+    <Content Include="Areas\References\Views\FileTypes\Partial\_Form.cshtml" />
+    <Content Include="Areas\References\Views\FileTypes\Partial\_Table.cshtml" />
+    <Content Include="Areas\References\Views\CourtTypes\Create.cshtml" />
+    <Content Include="Areas\References\Views\CourtTypes\CreateWithReturn.cshtml" />
+    <Content Include="Areas\References\Views\CourtTypes\Edit.cshtml" />
+    <Content Include="Areas\References\Views\CourtTypes\Index.cshtml" />
+    <Content Include="Areas\References\Views\CourtTypes\Partial\_Form.cshtml" />
+    <Content Include="Areas\References\Views\CourtTypes\Partial\_Table.cshtml" />
+    <Content Include="Areas\References\Views\FileStatuses\Create.cshtml" />
+    <Content Include="Areas\References\Views\FileStatuses\CreateWithReturn.cshtml" />
+    <Content Include="Areas\References\Views\FileStatuses\Edit.cshtml" />
+    <Content Include="Areas\References\Views\FileStatuses\Index.cshtml" />
+    <Content Include="Areas\References\Views\FileStatuses\Partial\_Form.cshtml" />
+    <Content Include="Areas\References\Views\FileStatuses\Partial\_Table.cshtml" />
+    <None Include="packages.config" />
+    <Content Include="plugins\bower_components\footable\css\fonts\footable.eot" />
+    <Content Include="plugins\bower_components\footable\css\fonts\footable.ttf" />
+    <Content Include="plugins\bower_components\footable\css\fonts\footable.woff" />
+    <Content Include="plugins\bower_components\footable\css\fonts\footabled41d.eot" />
+    <Content Include="plugins\bower_components\summernote\dist\font\summernoted41d.eot" />
+    <Content Include="plugins\bower_components\summernote\dist\font\summernotef534.eot" />
+    <Content Include="plugins\bower_components\summernote\dist\font\summernotef534.ttf" />
+    <Content Include="plugins\bower_components\summernote\dist\font\summernotef534.woff" />
+    <Content Include="plugins\bower_components\dropify\dist\fonts\dropify.ttf" />
+    <Content Include="plugins\bower_components\dropify\dist\fonts\dropify.woff" />
+    <Content Include="plugins\leaflet\leaflet-src.esm.js.map" />
+    <Content Include="plugins\leaflet\leaflet-src.js.map" />
+    <Content Include="plugins\leaflet\leaflet.js.map" />
+    <Content Include="plugins\jqBootstrapValidation\.gitignore" />
+    <Content Include="plugins\jqBootstrapValidation\LICENSE" />
+    <Content Include="plugins\jqBootstrapValidation\README.md" />
+    <None Include="Properties\PublishProfiles\AVBS.buberswichDirect.pubxml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Messages.cshtml" />
+    <Content Include="Views\Shared\_Navbar.cshtml" />
+    <Content Include="Views\Shared\_Sidebar.cshtml" />
+    <Content Include="_ViewStart.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Personnel\CreatePartial.cshtml" />
+    <Content Include="Views\Personnel\CreateWithReturn.cshtml" />
+    <Content Include="Views\Personnel\EditPartial.cshtml" />
+    <Content Include="Views\Personnel\Index.cshtml" />
+    <Content Include="Views\Personnel\Partial\_Form.cshtml" />
+    <Content Include="Views\Personnel\Partial\_Table.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Personnel\Partial\_EditForm.cshtml" />
+    <Content Include="Views\Personnel\Partial\_PasswordForm.cshtml" />
+    <Content Include="Views\Personnel\RefreshPassword.cshtml" />
+    <Content Include="Views\Personnel\Create.cshtml" />
+    <Content Include="Views\Personnel\Edit.cshtml" />
+    <Content Include="Views\Client\Create.cshtml" />
+    <Content Include="Views\Client\CreatePartial.cshtml" />
+    <Content Include="Views\Client\CreateWithReturn.cshtml" />
+    <Content Include="Views\Client\Edit.cshtml" />
+    <Content Include="Views\Client\EditPartial.cshtml" />
+    <Content Include="Views\Client\Index.cshtml" />
+    <Content Include="Views\Client\Partial\_Form.cshtml" />
+    <Content Include="Views\Client\Partial\_PasswordForm.cshtml" />
+    <Content Include="Views\Client\Partial\_Table.cshtml" />
+    <Content Include="Views\Client\RefreshPassword.cshtml" />
+    <Content Include="Views\Ticket\Create.cshtml" />
+    <Content Include="Views\Ticket\CreatePartial.cshtml" />
+    <Content Include="Views\Ticket\CreateWithReturn.cshtml" />
+    <Content Include="Views\Ticket\Edit.cshtml" />
+    <Content Include="Views\Ticket\EditPartial.cshtml" />
+    <Content Include="Views\Ticket\Index.cshtml" />
+    <Content Include="Views\Ticket\Partial\_Form.cshtml" />
+    <Content Include="Views\Ticket\Partial\_Table.cshtml" />
+    <Content Include="Views\Ticket\AssignPartial.cshtml" />
+    <Content Include="Views\Ticket\Partial\_AssignForm.cshtml" />
+    <Content Include="Views\Ticket\Partial\_AnswerForm.cshtml" />
+    <Content Include="Views\Ticket\AnswerPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AVBS.Business\AVBS.Business.csproj">
+      <Project>{f8fb40f0-2baf-4b28-b082-1b71d1adef7a}</Project>
+      <Name>AVBS.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AVBS.Entity\AVBS.Entity.csproj">
+      <Project>{277b79f9-bc5c-4b75-8d17-1e8f3dc67807}</Project>
+      <Name>AVBS.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AVBS.Enum\AVBS.Enum.csproj">
+      <Project>{394336d3-da87-48da-af05-c534ed358a49}</Project>
+      <Name>AVBS.Enum</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AVBS.Infrastructure\AVBS.Infrastructure.csproj">
+      <Project>{7d699aaf-b532-4057-b30b-941bea6b2d11}</Project>
+      <Name>AVBS.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AVBS.View\AVBS.View.csproj">
+      <Project>{3d955671-c4b7-4a9f-8cbb-79a2bb28ae55}</Project>
+      <Name>AVBS.View</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>63766</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://dev.avbs.com</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

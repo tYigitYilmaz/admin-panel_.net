@@ -1,0 +1,134 @@
+﻿
+<style>
+    .sidebar-nav i {
+        margin-right: 5px;
+    }
+</style>
+
+@{
+
+    string path = HttpContext.Current.Request.Url.AbsolutePath.ToLower();
+
+    var isDashboard = false;
+    var isOfficeOperations = false;
+    var isFile = false;
+    var isCalendar = false;
+    var isClient = false;
+    var isPersonnel = false;
+    if ( path.Contains( "personnel" ) || path.Contains( "client" ) ) {
+        if ( path == "personnel" ) { isPersonnel = true;}
+        if ( path == "client" ) { isClient = true;  }
+        isOfficeOperations = true;
+    } else if ( path.Contains( "file" ) ) {
+        isFile = true;
+    } else if ( path == "calendar" ) {
+        isCalendar = true;
+    } else if ( path == "/" ) {
+        isDashboard = true;
+    }
+
+}
+
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+        <ul class="nav" id="side-menu">
+            <li class="sidebar-search hidden-sm hidden-md hidden-lg">
+                <!-- input-group -->
+                <div class="input-group custom-search-form">
+                    <input type="text" class="form-control" placeholder="Search..."> <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"> <i class="fa fa-search"></i> </button>
+                    </span>
+                </div>
+                <!-- /input-group -->
+            </li>
+
+            <li>
+                <a href="/" class="waves-effect @{if ( isDashboard ) { <text> active </text>;} }"><i class="icon-home"></i> <span class="hide-menu"> Ana Sayfa </span></a>
+            </li>
+            
+            
+            <li>
+                <a href="#" class="waves-effect disabled nav-drop @{if ( isOfficeOperations ) { <text> active </text>;} }"><i class="icon-layers" data-icon="v"></i> <span class="hide-menu"> Ofis İşlemleri  <span class="fa arrow"></span></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a style="cursor: not-allowed" class="waves-effect @{if ( isFile ) { <text> active </text>;} }"> Giriş İşlemleri </a>
+                    </li>
+                    <li>
+                        <a href="/personnel" class="waves-effect @{if ( isPersonnel ) { <text> active </text>;} }"> Personel İşlemleri </a>
+                    </li>
+
+                    <li>
+                        <a href="/client" class="waves-effect @{if ( isClient ) { <text> active </text>;} }"> Müvekkil İşlemleri </a>
+                    </li>
+                    <li>
+                        <a style="cursor: not-allowed" class="waves-effect disabled @{if ( isFile ) { <text> active </text>;} }">  Ödeme İşlemleri </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+            <li>
+                <a @*href="/file"*@ style="cursor: not-allowed" class="waves-effect @{if ( isFile ) { <text> active </text>;} }"><i class="icon-briefcase"></i> <span class="hide-menu"> Dosya İşlemleri </span> </a>
+            </li>
+            
+            <li>
+                <a @*href="/calendar"*@ style="cursor: not-allowed" class="waves-effect @{if ( isFile ) { <text> active </text>;} }"><i class="icon-calender"></i> <span class="hide-menu"> Ajanda İşlemleri </span> </a>
+            </li>
+            
+            <li>
+                <a @*href="#"*@ style="cursor: not-allowed" class="waves-effect nav-drop @{if ( isFile ) { <text> active </text>;} }"><i class="icon-ecommerce-money" data-icon="v"></i> <span class="hide-menu"> Cari Hesap İşlemleri  <span class="fa arrow"></span></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a style="cursor: not-allowed"  class="waves-effect @{if ( isFile ) { <text> active </text>;} }"> Müvekkil Cari Hesapları</a>
+                    </li>
+                    <li>
+                        <a style="cursor: not-allowed"  class="waves-effect @{if ( isFile ) { <text> active </text>;} }"> Ofis İçi Cari Hesaplar </a>
+                    </li>
+
+                </ul>
+            </li>
+            
+
+            <li>
+                <a href="/ticket" disabled class="waves-effect @{if ( isFile ) { <text> active </text>;} }"><i class="icon-question"></i> <span class="hide-menu"> Danışmanlık İşlemleri </span> </a>
+            </li>
+
+
+            @*<li>
+                <a href="/outgoing" class="waves-effect @{if ( isOutgoing ) { <text> active </text>;} }"><i class="ti-share" data-icon="v"></i> <span class="hide-menu">Giderler</span> </a>
+            </li>
+            <li>
+                <a href="/analytics" class="waves-effect @{if ( isAnalytic ) { <text> active </text>;} }"><i class="ti-bar-chart"></i> <span class="hide-menu">Analytics</span> </a>
+            </li>
+
+            <li>
+                <a href="/menu" class="waves-effect @{if ( isMenu ) { <text> active </text>;} }"><i class="ti-layout-menu-v"></i> <span class="hide-menu"> Menu </span> </a>
+            </li>
+            <li>
+                <a href="#" class="waves-effect nav-drop @{if ( isStockPurchase ) { <text> active </text>;} }"><i class="ti-layers-alt" data-icon="v"></i> <span class="hide-menu"> Mal Alımı / Stok  <span class="fa arrow"></span></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="/productpurchase" class="waves-effect @{if ( isProductPurchase ) { <text> active </text>;} }"> Mal alımları </a>
+                    </li>
+                    <li>
+                        <a href="/stock" class="waves-effect @{if ( isStock ) { <text> active </text>;} }"> Stok </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="waves-effect nav-drop @{if ( isIngredient ) { <text> active </text>;} }"><i class="ti-target" data-icon="v"></i> <span class="hide-menu"> Ürün İçerikleri  <span class="fa arrow"></span></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="/ingredientlabelcompany" class="waves-effect @{if ( isIngredientlabelcompany ) { <text> active </text>;} }"> İçerik / Marka / Firma </a>
+                    </li>
+                    <li>
+                        <a href="/ingredientunitprice" class="waves-effect @{if ( isIngredientunitprice ) { <text> active </text>;} }"> İçerik Birim Fiyatları </a>
+                    </li>
+                     
+                </ul>
+            </li>*@
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+﻿@model AVBS.Office.UI.Models.Ticket.TicketModel
+
+<style>
+    .form-horizontal .form-group {
+        margin-right: 0 !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="AnswerText">Soru Metni</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="ti-user"></i></div>
+                @Html.TextAreaFor( model => model.AnswerText, htmlAttributes: new { @class = "form-control", @placeholder = "Metin", required = "" } )
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/plugins/inputmask/jquery.inputmask.bundle.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+        $("input,textarea,select").jqBootstrapValidation(
+            {
+                preventSubmit: true,
+                filter: function () {
+                    return $(this).is(":visible");
+                }
+            }
+        );
+    });
+</script>

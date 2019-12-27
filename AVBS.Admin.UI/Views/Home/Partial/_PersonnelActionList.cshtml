@@ -1,0 +1,157 @@
+﻿
+<div class="row">
+    <div class="col-lg-3 col-sm-12">
+        <form class="s-input-group">
+            <div class="input-group-addon s-table-search"><i class="fa fa-search"></i></div>
+            <div class="floating-labels table-search">
+                <input type="text" class="form-control table-search-input" id="personnelActionSearch" placeholder="Search . . ."><span class="highlight"></span> <span class="bar"></span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br />
+
+<div id="personnelActionCard" class="s-action-card">
+</div>
+
+<div class="hide">
+    <div id="personnelCardCopyDiv" class="col-sm-12">
+        <div class="card card-shadow">
+            <div class="card-body">
+                <div class="row t-a-c">
+                    <div class="col-lg-12 col-xs-12">
+                        <a href="#">
+                            <img src="" alt="user" class="img-circle img-fluid avatar">
+
+                            <div class="avatar no-photo-div t-a-c hide"></div>
+                            <span class="point"></span>
+                        </a>
+                    </div>
+                    <div class="col-lg-12 col-xs-12 personnel-info">
+                        <h3 class="box-title m-b-0 personnel-name" data-toggle="tooltip" title=""></h3> <small class="personnel-title" data-toggle="tooltip" title=""></small>
+                        <br />
+                        <br />
+                        <address>Entrance Time<h3 style="color:#67b7dc">9:12</h3></address>
+                    </div> 
+                    <div class="card-action-dropdown">
+                        <a href="/tracker/floor/40" class="btn card-action-btn"> <i class="icon-eye"></i> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="hide">
+    <div id="copyRowDiv" class="row"></div>
+</div>
+
+<script>
+    var copyDiv;
+    var personnelActionCardDiv;
+    var copyRowDiv;
+    var personnelList = null;
+    var columnsPerRow = 5;
+
+    $(document).ready(function () {
+        // initialize
+        copyDiv = $('#personnelCardCopyDiv');
+        personnelActionCardDiv = $('#personnelActionCard');
+        copyRowDiv = $('#copyRowDiv');
+
+        $('#personnelActionSearch').on('keyup', function () {
+            getPersonnelData();
+        });
+
+        getPersonnelData();
+
+        
+    });
+
+    function getPersonnelData() {
+        var searchTxt = $('#personnelActionSearch').val();
+        $.ajax({
+            url: '/Personnel/GetActionList?draw=1&search[value]=' + searchTxt,
+            type: 'GET',
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,  // tell jQuery not to set contentType
+            success: function (data) {
+                personnelList = data.data;
+                arrangeCardView();
+            }
+        });
+    }
+
+    function arrangeCardView() {
+
+        // Arrange column number according to viewport
+        var windowWidth = window.innerWidth;
+        var bootstrapColumnClass = "";
+
+        if (windowWidth > 1280) {
+            columnsPerRow = 6;
+            bootstrapColumnClass = "col-lg-2";
+        } else {
+            columnsPerRow = 5;
+            bootstrapColumnClass = "s-col-lg-1-5";
+        }
+
+        personnelActionCardDiv.empty();
+
+        var columnCount = 0;
+        var tempRowDiv = $(copyRowDiv).clone().removeAttr('id');
+
+        // Check the personnellist has value
+        if (personnelList.length == 0) {
+            personnelActionCardDiv.append('<div class="alert alert-card"> No data available.</div>');
+            return;
+        }
+
+        personnelList.forEach(function (personnel) {
+            var tempCopyDiv = $(copyDiv).clone().removeAttr('id');
+
+
+            // if no profile image write first letters of name and surname
+            if (personnel.ImageUrl == '' || personnel.ImageUrl == null) {
+                var intials = personnel.Name.charAt(0).toUpperCase() + personnel.Surname.charAt(0).toUpperCase();
+                $($(tempCopyDiv).find(".no-photo-div")).text(intials).css("background-color", personnel.DepartmentColor).toggleClass("hide");
+                $($(tempCopyDiv).find(".img-circle")).toggleClass("hide"); // hide img tag
+
+            } else {
+                $($(tempCopyDiv).find(".img-circle")).attr('src', personnel.ImageUrl);
+            }
+
+            $($(tempCopyDiv).find(".personnel-name")).html(personnel.Name + " " + personnel.Surname);
+            $($(tempCopyDiv).find(".personnel-name")).attr('title', personnel.Name + " " + personnel.Surname);
+            $($(tempCopyDiv).find(".personnel-title")).html(personnel.Title);
+            $($(tempCopyDiv).find(".personnel-title")).attr('title', personnel.Title);
+
+            $(tempCopyDiv).addClass(bootstrapColumnClass);
+
+            tempRowDiv.append(tempCopyDiv);
+
+            columnCount++;
+
+            if (columnCount % columnsPerRow == 0) {
+                personnelActionCardDiv.append(tempRowDiv);
+                personnelActionCardDiv.append('<br>');
+                tempRowDiv = $(copyRowDiv).clone().removeAttr('id');
+            }
+        });
+
+        // fill the remaining columns with empty cols to prevent bootstrap from lg auto sizing
+        var lastRowColumnCount = columnCount % columnsPerRow;
+        if (lastRowColumnCount != 0) {
+            for (var i = 0; i < columnsPerRow - lastRowColumnCount ; i++) {
+                tempRowDiv.append('<div class="col-lg col-sm-12"></div>');
+            }
+        }
+
+        personnelActionCardDiv.append(tempRowDiv);
+        tempRowDiv = $(copyRowDiv).clone().removeAttr('id');
+    }
+
+
+
+</script>

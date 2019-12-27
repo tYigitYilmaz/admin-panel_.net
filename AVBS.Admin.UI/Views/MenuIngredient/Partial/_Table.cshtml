@@ -1,0 +1,107 @@
+﻿@using AVBS.Entity.Concrete
+@{
+    var menu = ( AVBS_Menu ) ViewBag.Menu;
+}
+
+<div class="row s-table-elements">
+    <div class="col-lg col-sm-12">
+        <form class="s-input-group">
+        <div class="input-group-addon s-table-search"><i class="fa fa-search"></i></div>
+        <div class="floating-labels table-search">
+            <input type="text" class="form-control table-search-input" id="menuIngredientSearch" placeholder="Search . . ."><span class="highlight"></span> <span class="bar"></span>
+        </div>
+    </form>
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="s-table-actions">
+            <button data-url="/menuIngredient/createpartial/@menu.Id" class="btn btn-primary ajax-modal pull-right"> Menü İçeriği Ekle </button>
+            <div class="input-group-btn pull-right mr-2">
+                <button type="button" class="btn btn-filter-view" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ti-more-alt"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#"> Export as Excel </a>
+                    <a class="dropdown-item" href="#"> Export as Pdf </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="menuIngredientTableDiv" class="table-responsive">
+    <table id="menuIngredientTable" class="display nowrap" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>İçerik Adı</th>
+            <th style="text-align: center;">İçerik Miktar Birim Adı</th>
+            <th style="text-align: center;">Güncel Fiyat</th>
+            <th style="text-align: center;">İşlemler</th> 
+        </tr>
+        </thead>
+        <tbody> </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th> 
+                <th class="total-price"></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        var menuIngredientTable = $('#menuIngredientTable').DataTable({
+            ajax: {
+                "url": '/MenuIngredient/GetList?MenuId=@menu.Id',
+                "dataSrc": function (json) { 
+                    $('#menuIngredientTableDiv .total-price').html('Toplam: ₺ ' + json.totalPrice.toFixed(4));
+                    return json.data;
+                }
+            }, 
+            columnDefs: [
+                {
+                    targets: 0,
+                    className: 'all',
+                    render: function (Id, type, full) {
+                        return full.IngredientName;
+                    }
+                },
+                {
+                    targets: 1,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.Quantity + " " + full.UnitTypeName;
+                    }
+                },
+                {
+                    targets: 2,
+                    className: 'dt-center',
+                    render: function (Id, type, full) { 
+                        return full.Price.toFixed(4);
+                    }
+                },
+                {
+                    orderable: false,
+                    targets: 3,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return ' <a href="#" data-url="/menuIngredient/editpartial/' + full.Id + '" class="ajax-modal" data-original-title="Edit"> <i class="ti-pencil text-inverse m-r-10"></i> </a>' +
+                                ' <a href="#" data-url="/menuIngredient/delete/' + full.Id + '" class="remove-element" data-toggle="tooltip" data-original-title="Close"> <i class="ti-trash text-danger"></i> </a>';
+                    }
+                }
+
+            ]
+        });
+
+        // initialize tables search inputs
+        $('#menuIngredientSearch').keyup(function () {
+            menuIngredientTable.search($(this).val()).draw();
+        });
+    })
+
+</script>
+ 

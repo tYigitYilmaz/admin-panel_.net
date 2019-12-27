@@ -1,0 +1,98 @@
+﻿
+@model AVBS.Office.UI.Models.Ticket.TicketModel
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary( true )
+
+<style>
+    .form-horizontal .form-group {
+        margin-right: 0 !important;
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="ClientId"> İlgili Müvekkil </label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="icon-user-following"></i></div>
+                @Html.DropDownList( "ClientId", new SelectList( ViewBag.ClientList, "Id", "Name" ), "", htmlAttributes: new { placeholder = "Müvekkil Seçiniz", @class = "form-control select2", required = "required" } )
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="AssignedUserId"> Atanacak Personel </label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="icon-user"></i></div>
+                @Html.DropDownList( "AssignedUserId", new SelectList( ViewBag.PersonnelList, "Id", "Name" ), "", htmlAttributes: new { placeholder = "Personel Seçiniz", @class = "form-control select2", required = "required" } )
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="QuestionHeader">Soru Başlığı</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="ti-user"></i></div>
+                @Html.TextBoxFor( model => model.QuestionHeader, htmlAttributes: new { @class = "form-control", @placeholder = "Başlık", required = "", maxlength = "255" } )
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="QuestionText">Soru Metni</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="icon-note"></i></div>
+                @Html.TextAreaFor( model => model.QuestionText, htmlAttributes: new { @class = "form-control", @placeholder = "Metin", required = "", maxlength = "4000", @rows = 4 } )
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/plugins/bower_components/custom-select/custom-select.min.js"></script>
+<script src="/plugins/inputmask/jquery.inputmask.bundle.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#ClientId").select2({
+            formatNoMatches: function (term) {
+                return "<em>" +
+					term +
+					'</em> kayıt bulunamadı.<br><a href="/" onclick="modalForm(\'/client/createwithreturn\',\'#ClientId\')"> + Yeni Ekle </a>';
+            }
+        });
+
+        $("#AssignedUserId").select2({
+            formatNoMatches: function (term) {
+                return "<em>" +
+					term +
+					'</em> kayıt bulunamadı.<br><a href="/" onclick="modalForm(\'/personnel/createwithreturn\',\'#AssignedUserId\')"> + Yeni Ekle </a>';
+            }
+        });
+
+
+    });
+
+    $(function () {
+        $("input,textarea,select").jqBootstrapValidation(
+            {
+                preventSubmit: true,
+                filter: function () {
+                    return $(this).is(":visible");
+                }
+            }
+        );
+    });
+</script>

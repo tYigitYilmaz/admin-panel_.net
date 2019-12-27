@@ -1,0 +1,226 @@
+﻿@using AVBS.Enum
+@using AVBS.Office.UI.Helper
+@model AVBS.Office.UI.Models.User.UserModel
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary( true )
+
+<style>
+    .form-horizontal .form-group {
+        margin-right: 0 !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="user-img">
+            <center style="width: 150px; height: 150px; margin: 0 auto; display: block">
+                <button id="removeImg" class="btn btn-xs btn-danger m-t-5" style="display:none; margin-left: 118px; position: absolute;
+												 border-radius: 25px !important; padding-left: 1% !important; padding-right: 1% !important;">
+                    <i class="fa fa-times"></i>
+                </button>
+                <img id="mona" src="/Images/no-profile-image.png" alt="user" class="img-circle" style="height: 150px; width: 150px;">
+                <div class="avatar no-photo-div-account t-a-c hide"></div>
+                <input type="file" id="File" name="File" class="hide" data-max-file-size="5M" accept="image/png,image/x-png,image/gif,image/jpeg" />
+                <span class="profile-status online pull-right"></span>
+            </center>
+        </div>
+    </div>
+    <div class="col-md-9">
+
+
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="Name">Adı</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-user"></i></div>
+                        @Html.TextBoxFor( model => model.Name, htmlAttributes: new { @class = "form-control", @placeholder = "Adı", required = "", maxlength = "50" } )
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="Surname">Soyadı</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-user"></i></div>
+                        @Html.TextBoxFor( model => model.Surname, htmlAttributes: new { @class = "form-control", @placeholder = "Soyadı", required = "", maxlength = "50" } )
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="Identity">Kimlik No</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="ti-id-badge"></i>
+                        </div>
+                        @Html.TextBoxFor( model => model.Identity, htmlAttributes: new { @class = "form-control identity-inputmask", @placeholder = "Kimlik No", required = "required", maxlength = 11, tcidentity = "tcidentity" } )
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="Email">E-posta Adresi</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-email"></i></div>
+                        @Html.TextBoxFor( model => model.Email, htmlAttributes: new { @class = "form-control email-inputmask", type="email", @placeholder = "Eposta", required = "required", maxlength = "50" } )
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="Password">Şifre</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-key"></i></div>
+                        @Html.TextBoxFor( model => model.Password, htmlAttributes: new {
+               @class = "form-control",
+               type = "password",
+               @placeholder = "Şifre",
+               required = "required",
+               data_validation_regex_regex = UserHelper.PasswordRegex,
+               data_validation_regex_message = Messages.PasswordError
+           } )
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="PasswordRepeat">Şifre Tekrar</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-key"></i></div>
+                        <input class="form-control" data-validation-matches-match="Password" data-validation-matches-message="Girilen şifrelerin aynı olması gerekmekte" id="PasswordRepeat" name="PasswordRepeat" maxlength="50" placeholder="Şifre Tekrar" type="password" value="" aria-invalid="false">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="RoleId">Rol</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="icon-tag"></i></div>
+                        @Html.DropDownList( "RoleId", new SelectList( ViewBag.RoleList, "Id", "Name" ), "", htmlAttributes: new { placeholder = "Rol Seçiniz", @class = "form-control select2", required = "required" } )
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="Phone">Telefon</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="icon-phone"></i></div>
+                        @Html.TextBoxFor( model => model.Phone, htmlAttributes: new { @class = "form-control phone-inputmask", @placeholder = "Telefon", maxlength = 50, required = "required" } )
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="/plugins/bower_components/custom-select/custom-select.min.js"></script>
+<script src="/plugins/inputmask/jquery.inputmask.bundle.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        // init select2
+        $('.select2').each(function (i, obj) {
+            if (!$(obj).data("select2")) {
+                $(obj).select2();
+            }
+        });
+
+        //// mask init
+        $(".phone-inputmask").inputmask("(999) 999-9999");
+        $(".identity-inputmask").inputmask("99999999999");
+        $(".email-inputmask").inputmask({
+            mask: "*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@@*{1,20}[*{2,6}][*{1,2}].*{1,}[.*{2,6}][.*{1,2}]",
+            greedy: !1,
+            onBeforePaste: function (n, a) {
+                return (e = e.toLowerCase()).replace("mailto:", "")
+            },
+            definitions: {
+                "*": {
+                    validator: "[0-9A-Za-z!#$%&'*+/=?^_`{|}~/-]",
+                    cardinality: 1,
+                    casing: "lower"
+                }
+            }
+        });
+
+
+        $('#mona').hover(function () {
+            // In case the user don't have a picture already
+            var filepath = $("#File").val();
+            if (filepath != "") {
+                $('#removeImg').show();
+            }
+        },
+				function () {
+				    $('#removeImg').hide();
+				});
+
+        $('#removeImg').hover(function () {
+            $(this).show();
+        },
+            function () {
+                $(this).hide();
+            });
+
+        $('#removeImg').on('click', function (e) {
+            e.preventDefault();
+            $("#File").val("");
+            $("#mona").attr('src', '/Images/no-profile-image.png');
+        });
+
+        $('#mona').on('click',
+            function () {
+                $('#File').trigger('click');
+            });
+
+        $('.no-photo-div-account').on('click',
+            function () {
+                $('#File').trigger('click');
+            });
+
+        $("#File").change(function () {
+            if (this.files[0].size > 5242880) { // TODO: file size dinamik
+                swal("İşlem iptal edildi!", "Yüklemeye çalıştığınız dosya boyutu sınırın üzerinde.", "error");
+                this.value = "";
+                return;
+            };
+
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.onload = function () {
+                document.getElementById('mona').src = this.result;
+            };
+            reader.readAsDataURL(file);
+            $(".no-photo-div-account").addClass("hide");
+            $("#mona").removeClass("hide");
+        });
+
+
+    });
+
+    $(function () {
+        $("input,textarea,select").jqBootstrapValidation(
+            {
+                preventSubmit: true,
+                filter: function () {
+                    return $(this).is(":visible");
+                }
+            }
+        );
+    });
+</script>

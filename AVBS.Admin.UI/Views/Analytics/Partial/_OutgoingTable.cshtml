@@ -1,0 +1,115 @@
+﻿@using AVBS.Enum
+<div class="row s-table-elements">
+    <div class="col-lg col-sm-12">
+        <form class="s-input-group">
+            <div class="input-group-addon s-table-search"><i class="fa fa-search"></i></div>
+            <div class="floating-labels table-search">
+                <input type="text" class="form-control table-search-input" id="outgoingSearch" placeholder="Search . . ."><span class="highlight"></span> <span class="bar"></span>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="s-table-actions">
+            <div class="input-group-btn pull-right mr-2">
+                <button type="button" class="btn btn-filter-view" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ti-more-alt"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#"> Export as Excel </a>
+                    <a class="dropdown-item" href="#"> Export as Pdf </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="outgoingTableDiv" class="table-responsive">
+    <table id="outgoingTable" class="display nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Tarih</th>
+                <th style="text-align: center;">Gider Tipi</th>
+                <th style="text-align: center;">Gider Alt Tipi</th>
+                <th style="text-align: center;">Miktarı</th>
+                <th style="text-align: center;">Açıklama</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th class="total-outgoing"></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+<script>
+
+    var totalOutgoing = 0;
+
+    function outgoingTableInit() {
+        var outgoingTable = $('#outgoingTable').DataTable({
+            ajax: {
+                "url": '/Outgoing/GetList?date=' + window.currentDate,
+                "dataSrc": function (json) {
+                    $('#outgoingTableDiv .total-outgoing').html('Toplam: ₺ ' + json.totalOutgoing);
+                    return json.data;
+                }
+            },
+            columnDefs: [
+                {
+                    targets: 0,
+                    className: 'all',
+                    render: function (Id, type, full) {
+                        return parseJsonDate(full.Date);
+                    }
+                },
+                {
+                    targets: 1,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.OutgoingTypeName;
+                    }
+                },
+                {
+                    targets: 2,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.SubOutgoingTypeName;
+                    }
+                },
+
+                {
+                    orderable: false,
+                    targets: 3,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.Description;
+                    }
+                },
+                 {
+                     targets: 4,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return full.Amount + " ₺";
+                     }
+                 }
+
+
+            ]
+        });
+
+        // initialize tables search inputs
+        $('#outgoingSearch').keyup(function () {
+            outgoingTable.search($(this).val()).draw();
+        });
+        //})
+    }
+
+</script>

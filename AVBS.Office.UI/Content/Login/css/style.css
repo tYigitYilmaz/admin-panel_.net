@@ -1,0 +1,147 @@
+body {
+    font-family: "Lato", sans-serif;
+}
+
+#login-form {
+    background-color: #fff;
+    padding: 50px 80px;
+}
+
+#login-btn {
+    background-color: #bd535f;
+}
+
+.logo-img img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.logo-txt {
+    font-size: 30px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.logo-txt-light {
+    font-weight: lighter;
+    color: gray;
+}
+
+.header {
+    font-size: 54px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.header-grey {
+    color: #4a4a4a;
+}
+
+.header-maroon {
+    color: #bd535f;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.form-control {
+    background-color: #f4f4f4 !important;
+}
+
+#login-btn {
+    color: #fff;
+    background-color: #bd535f;
+    padding: 8px 5px;
+    border: 0 none;
+    letter-spacing: 1px;
+}
+
+#login-btn:hover, #login-btn:focus, #login-btn:active, #login-btn.active, .open > .dropdown-toggle#login-btn {
+    background-color: #93414a;
+    outline: 0 none;
+}
+
+input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+    cursor: pointer;
+}
+
+#hero {
+    padding: 0px 0px;
+    width: 100%;
+}
+
+.hero-img {
+    display: block;
+    padding: 0px 0px;
+}
+
+.register-text {
+    text-align: center;
+}
+
+.carousel-inner {
+	background-image: url("/Content/Login/images/background.jpg");
+	background-size: cover;
+	background-color: rgba(0, 0, 0, 0.5);
+	/*background-position: center center;*/
+	background-repeat: no-repeat;
+	height: 100vh;
+}
+
+.carousel h3 {
+    font-size: 40px;
+    font-weight: 400;
+    color: #f4f4f4;
+    letter-spacing: 2px;
+}
+
+.carousel p {
+    font-size: 25px;
+    font-weight: 300;
+    color: #f4f4f4;
+    letter-spacing: 1px;
+    line-height: 41px;
+}
+
+.carousel-caption {
+    top: 8em; 
+}
+
+.carousel-item {
+    width: 100%;
+    top: 0px;
+}
+
+.carousel-indicators li {
+    width: 15px !important;
+    height: 15px !important;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    padding: none !important;
+    border-radius: 100%;
+}
+.carousel-indicators {
+    padding-bottom: 200px !important;
+}
+
+.carousel-back {
+    opacity: 0;
+}
+
+.carousel-logo {
+    height: 120px;
+    width: 120px;
+    margin-bottom: 35px;
+}
+
+.wider-logo {
+    margin-top: 35px;
+    margin-bottom: 35px;
+    height: 85px;
+    width: 148px;
+}

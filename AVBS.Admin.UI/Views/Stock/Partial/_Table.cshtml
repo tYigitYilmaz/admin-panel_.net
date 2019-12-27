@@ -1,0 +1,188 @@
+﻿@using AVBS.Enum
+<div class="row s-table-elements">
+    <div class="col-lg col-sm-12">
+        <form class="s-input-group">
+            <div class="input-group-addon s-table-search"><i class="fa fa-search"></i></div>
+            <div class="floating-labels table-search">
+                <input type="text" class="form-control table-search-input" id="stockSearch" placeholder="Search . . ."><span class="highlight"></span> <span class="bar"></span>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="s-table-actions">
+            <button data-url="/stock/createpartial/" class="btn btn-primary ajax-modal pull-right"> Stok Ekle </button>
+            <div class="input-group-btn pull-right mr-2">
+                <button type="button" class="btn btn-filter-view" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ti-more-alt"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#"> Export as Excel </a>
+                    <a class="dropdown-item" href="#"> Export as Pdf </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="stockTableDiv" class="table-responsive">
+    <table id="stockTable" class="display nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Tarih</th>
+                <th style="text-align: center;">Firma</th>
+                <th style="text-align: center;">Marka</th>
+                <th style="text-align: center;">İçerik Adı</th>
+                <th style="text-align: center;">Açıklaması</th>
+                <th style="text-align: center;">Birim Tipi</th>
+                <th style="text-align: center;">Miktarı</th>
+                <th style="text-align: center;">Birim Fiyat</th>
+                <th style="text-align: center;">Fiyat</th>
+                <th style="text-align: center;">KDV </th>
+                <th style="text-align: center;">Toplam Fiyat </th>
+                <th style="text-align: center;">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th class="total-outgoing"></th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+<script>
+
+    var stockTable;
+
+    function initStockTable(date) {
+        console.log(date);
+        stockTable = $('#stockTable').DataTable({
+            ajax: {
+                "url": '/Stock/GetList?date=' + date,
+                "dataSrc": function (json) {
+                    $('#stockTableDiv .total-outgoing').html('Toplam: ₺ ' + json.totalOutgoing);
+                    return json.data;
+                },
+                "type": "POST"
+            },
+            columnDefs: [
+                {
+                    targets: 0,
+                    className: 'all',
+                    render: function (Id, type, full) {
+                        return parseJsonDate(full.Date);
+                    }
+                },
+                {
+                    targets: 1,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.WorkWithCompanyName;
+                    }
+                },
+                {
+                    targets: 2,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.LabelName;
+                    }
+                },
+                {
+                    targets: 3,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.IngredientName;
+                    }
+                },
+                {
+                    targets: 4,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.Detail;
+                    }
+                },
+                 {
+                     targets: 5,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return full.UnitTypeName;
+                     }
+                 },
+                 {
+                     targets: 6,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return full.Quantity + " " + full.UnitTypeName;
+                     }
+                 },
+                 {
+                     targets: 7,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return full.UnitPrice + " ₺";
+                     }
+                 },
+                 {
+                     targets: 8,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return full.PriceWithoutTax + " ₺";
+                     }
+                 },
+                 {
+                     targets: 9,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return "% " + full.TaxCutPercentage;
+                     }
+                 },
+                 {
+                     targets: 10,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return full.TotalPrice + " ₺";
+                     }
+                 },
+                {
+                    orderable: false,
+                    targets: 11,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return ' <a href="#" data-url="/stock/editpartial/' + full.Id + '" class="ajax-modal" data-original-title="Edit"> <i class="ti-pencil text-inverse m-r-10"></i> </a>' + '<a href="#" data-url="/stock/delete/' + full.Id + '" class="remove-element" data-toggle="tooltip" data-original-title="Close"> <i class="ti-trash text-danger"></i> </a>';
+                    }
+                }
+
+            ]
+        });
+
+    }
+
+
+    $(document).ready(function () {
+        initStockTable('@ViewBag.CurrentDate');
+
+        // initialize tables search inputs
+        $('#stockSearch').keyup(function () {
+            stockTable.search($(this).val()).draw();
+        });
+
+        $("#MonthTermId").on('change', function () {
+            initStockTable($(this).val());
+        });
+    })
+
+</script>

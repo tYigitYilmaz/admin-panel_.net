@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{277B79F9-BC5C-4B75-8D17-1E8F3DC67807}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AVBS.Entity</RootNamespace>
+    <AssemblyName>AVBS.Entity</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework6.Npgsql">
+      <HintPath>..\AVBS\bin\EntityFramework6.Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.2.2.3\lib\net45\Mono.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Npgsql, Version=2.2.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.2.2.3\lib\net45\Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstract\BaseOfficeEntity.cs" />
+    <Compile Include="Abstract\BaseOfficeReferenceEntity.cs" />
+    <Compile Include="Abstract\BaseReferenceEntity.cs" />
+    <Compile Include="Abstract\BaseEntity.cs" />
+    <Compile Include="Abstract\IOfficeEntity.cs" />
+    <Compile Include="Abstract\IFileEntity.cs" />
+    <Compile Include="Abstract\IOfficeReferenceEntity.cs" />
+    <Compile Include="Abstract\IReferenceEntity.cs" />
+    <Compile Include="Abstract\IEntity.cs" />
+    <Compile Include="Concrete\AVBS_File.cs" />
+    <Compile Include="Concrete\AVBS_FileObjectionAppeal.cs" />
+    <Compile Include="Concrete\AVBS_FileIstinaf.cs" />
+    <Compile Include="Concrete\AVBS_FileEffective.cs" />
+    <Compile Include="Concrete\AVBS_FileDecree.cs" />
+    <Compile Include="Concrete\AVBS_FileClients.cs" />
+    <Compile Include="Concrete\AVBS_FileAppeal.cs" />
+    <Compile Include="Concrete\AVBS_FileAdviseParty.cs" />
+    <Compile Include="Concrete\AVBS_Court.cs" />
+    <Compile Include="Concrete\AVBS_Office.cs" />
+    <Compile Include="Concrete\AVBS_Client.cs" />
+    <Compile Include="Concrete\AVBS_TicketAttachment.cs" />
+    <Compile Include="Concrete\AVBS_Ticket.cs" />
+    <Compile Include="Concrete\AVBS_User.cs" />
+    <Compile Include="Entity_Context.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="References\AVBS_Roles.cs" />
+    <Compile Include="References\AVBS_FileTypes.cs" />
+    <Compile Include="References\AVBS_FileStatuses.cs" />
+    <Compile Include="References\AVBS_CourtTypes.cs" />
+    <Compile Include="References\AVBS_CaseSideTypes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Web.Config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

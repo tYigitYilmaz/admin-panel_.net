@@ -1,0 +1,23 @@
+﻿<!-- .row -->
+@using ( Html.BeginForm( "Create", "CourtTypes", FormMethod.Post, new { @class = "form-horizontal", data_toggle = "validator" } ) ) {
+    <div class="panel panel-default" style="margin-top: 0">
+        <div class="panel-heading">
+            Ekle <small class="text-muted"> Mahkeme Tipi </small>
+        </div>
+        <div class="panel-wrapper">
+            <div class="panel-body">
+                @Html.Partial( "Partial/_Form" )
+
+                <div class="form-group m-b-0">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-default waves-effect waves-light m-t-10" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Geri</span></button>
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-t-10">Kaydet</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+}
+

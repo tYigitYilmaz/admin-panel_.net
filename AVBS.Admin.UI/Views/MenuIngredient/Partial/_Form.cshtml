@@ -1,0 +1,100 @@
+﻿@using AVBS.Entity.Concrete
+@using AVBS.Enum
+@model AVBS_MenuIngredient
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary( true )
+
+@{
+    var menu = (AVBS_Menu) ViewBag.Menu;
+}
+
+<style>
+    .form-horizontal .form-group {
+        margin-right: 0 !important;
+    }
+</style>
+ 
+<input type="hidden" id="MenuId" name="MenuId" value="@menu.Id" />
+
+<div class="row">
+    <div class="col-md col-sm-12">
+        <div class="form-group">
+            <label for="LabelId"> İçerik </label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-bookmark"></i>
+                </div>
+                @Html.DropDownListFor( model => model.IngredientId, new SelectList( ViewBag.IngredientList, "Id", "Name" ), "", htmlAttributes: new { placeholder = "İçerik Seçiniz", @class = "form-control select2", required = "required" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="col-md col-sm-12">
+        <div class="form-group">
+            <label for="UnitTypeId">Birim Tipi</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-line-double"></i>
+                </div>
+                @Html.DropDownListFor( model => model.UnitTypeId, new SelectList( ViewBag.UnitTypeList, "Id", "Name" ), "", htmlAttributes: new { placeholder = "Birim Tipi Seçiniz", @class = "form-control select2", required = "required" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="col-md col-sm-12">
+        <div class="form-group">
+            <label for="Quantity">Miktar</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-money"></i>
+                </div>
+                @Html.TextBoxFor( model => model.Quantity, htmlAttributes: new { @class = "form-control", @placeholder = "Miktar", required = "required", data_inputmask = "'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+</div>
+
+ 
+@*<script src="/plugins/inputmask/jquery.inputmask.bundle.js"></script>*@
+<script src="/plugins/bower_components/custom-select/custom-select.min.js"></script>
+<script src="/js/validator.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(document).on("submit",
+            "#selectbox_validate",
+            function () {
+                if ($("div#maindiv").hasClass("has-error")) {
+                    $(this).find(".bootstrap-select")
+                        .after("<h6 class='has-error' style='color:red;'>please select any value from options.</h6>");
+                }
+
+            });
+
+
+        $("#IngredientId").select2({
+            formatNoMatches: function (term) {
+                return "<em>" +
+					term +
+					'</em> not found.<br><a href="/" onclick="modalForm(\'/ingredient/createwithreturn\',\'#IngredientId\')"> + Yeni Ekle </a>';
+            }
+        });
+
+
+        $("#UnitTypeId").select2({
+            formatNoMatches: function (term) {
+                return "<em>" +
+                    term +
+                    '</em> not found.<br><a href="/" onclick="modalForm(\'unittype\',\'#UnitTypeId\')"> + Yeni Birim Tipi Ekle </a>';
+            }
+        });
+
+    });
+
+
+
+
+</script>

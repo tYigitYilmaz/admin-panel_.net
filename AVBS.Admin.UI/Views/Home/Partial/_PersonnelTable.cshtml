@@ -1,0 +1,108 @@
+﻿<div class="white-box">
+    <h3 class="box-title">Personnel Action List</h3>
+    <div class="table-responsive">
+        <table id="trackerPersonnelTable" class="display nowrap" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th style="text-align: center;">Name</th>
+                    <th style="text-align: center;">Surname</th>
+                    <th style="text-align: center;">Location</th>
+                    <th style="text-align: center;">Department</th>
+                    <th style="text-align: center;">Title</th>
+                    <th style="text-align: center;">Actions</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th style="text-align: center;">Name</th>
+                    <th style="text-align: center;">Surname</th>
+                    <th style="text-align: center;">Location</th>
+                    <th style="text-align: center;">Department</th>
+                    <th style="text-align: center;">Title</th>
+                    <th style="text-align: center;">Actions</th>
+                </tr>
+            </tfoot>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#trackerPersonnelTable').DataTable({
+            @*ajax: '/Tracker/GetPersonnelList/@ViewBag.LocationId',*@
+            ajax: '/Tracker/GetPersonnelList/38',
+            processing: true,
+            serverSide: true,
+            dom: 'Bfitlp',
+            buttons: [
+                'excel', 'switchCardView'
+            ],
+            destroy: true,
+            rowReorder: {
+                selector: ['td:nth-child(0)', 'td:nth-child(3)']
+            },
+            responsive: true,
+            columnDefs: [
+                {
+                    targets: 0,
+                    className: 'all',
+                    render: function (Id, type, full) {
+                        return '<img src="' + full.ImageUrl + '" alt="user-img" width="50" class="img-circle">';
+                    }
+                },
+                 {
+                     targets: 1,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return full.Name;
+                     }
+                 },
+                {
+                    targets: 2,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.Surname;
+                    }
+                },
+
+                {
+                    targets: 3,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.LocationName;
+                    }
+                },
+
+                {
+                    targets: 4,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.DepartmentName;
+                    }
+                },
+
+                {
+                    targets: 5,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.Title;
+                    }
+                },
+                {
+                    targets: 6,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return '<a href="#" data-toggle="tooltip" data-original-title="Track"> <i class="fa fa-location-arrow text-success m-r-10"></i>TRACK </a>';
+                    }
+                }
+
+            ]
+
+        });
+
+        $("div.toolbar").css('float', 'right');
+    });
+</script>

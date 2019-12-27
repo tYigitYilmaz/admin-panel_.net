@@ -1,0 +1,281 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Content/favicon.ico">
+    <title>AVBS - Admin</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css" rel="stylesheet">
+    <!-- Menu CSS -->
+    <link href="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- toast CSS -->
+    <link href="/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <link href="/plugins/bower_components/custom-select/custom-select.css" rel="stylesheet" type="text/css" />
+    <!-- animation CSS -->
+    <link href="/css/animate.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    @RenderSection( "Styles", required: false )
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link href="/css/colors/blue.css" id="theme" rel="stylesheet">
+    <!-- Calendar CSS -->
+    <link href="/plugins/bower_components/calendar/dist/fullcalendar.css" rel="stylesheet" />
+    <!-- jQuery -->
+    <script src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
+    <div id="wrapper">
+        <!-- Navigation -->
+        @Html.Partial( "_Navbar" )
+        <!-- Left navbar-header -->
+        @Html.Partial( "_Sidebar" )
+        <!-- Left navbar-header end -->
+
+        <div id="page-wrapper">
+            @RenderBody()
+            @Html.Partial( "_Footer" )
+        </div>
+
+    </div>
+
+    <!-- /.modal -->
+    <div class="modal fade bs-example-modal-lg" id="main-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                @*<div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel1">New message</h4>
+                    </div>*@
+                <button type="button" class="modal-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-stack">
+
+    </div>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/bootstrap/dist/js/tether.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+    <!--slimscroll JavaScript -->
+    <script src="/js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="/js/waves.js"></script>
+
+    <!-- Sweet-Alert  -->
+    <script src="/plugins/bower_components/sweetalert/sweetalert.min.js"></script>
+    <script src="/plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js"></script>
+
+    <!--Counter js -->
+    <script src="/plugins/bower_components/waypoints/lib/jquery.waypoints.js"></script>
+    <script src="/plugins/bower_components/counterup/jquery.counterup.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="/js/custom.min.js"></script>
+    @*<script src="/js/mask.js"></script>*@
+
+    <link href="/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+
+    @RenderSection( "Scripts", required: false )
+
+    <script src="/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
+    <script src="/plugins/jqBootstrapValidation/jqBootstrapValidation.js"></script>
+
+    @Html.Partial( "_Messages" )
+
+    <script>
+        $(document).ready(function () {
+
+            var isSubmitted = false;
+            $('form').on("submit", function (e) {
+                if (isSubmitted) e.preventDefault();
+                isSubmitted = true;
+            });
+
+
+            $(".counter").counterUp({
+                delay: 100,
+                time: 1200
+            });
+
+
+            $(document).on('click',
+                '.ajax-modal',
+                (function (e) {
+                    e.preventDefault();
+                    ajaxModal($(this).data('url'));
+                }));
+
+            $(document).on('click',
+                '.fileinput-modal',
+                (function (e) {
+                    e.preventDefault();
+                    fileinputModal($(this).data('url'));
+                }));
+
+        });
+
+        function modalForm(url, elementId) {
+            var element = $(elementId);
+            ajaxModal(url, element);
+        }
+
+        function parseJsonDate(jsonDate) {
+
+            var fullDate = new Date(parseInt(jsonDate.substr(6)));
+            var twoDigitMonth = (fullDate.getMonth() + 1) + ""; if (twoDigitMonth.length == 1) twoDigitMonth = "0" + twoDigitMonth;
+
+            var twoDigitDate = fullDate.getDate() + ""; if (twoDigitDate.length == 1) twoDigitDate = "0" + twoDigitDate;
+            var currentDate = twoDigitDate + "/" + twoDigitMonth + "/" + fullDate.getFullYear();
+
+            return currentDate;
+        };
+
+        function ajaxModal(ajaxurl, element) {
+            var options = {
+                "backdrop": "static",
+                keyboard: true
+            };
+            $.ajax({
+                type: "GET",
+                url: ajaxurl,
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (data) {
+                    var numItems = $('.appended-modal').length;
+
+                    var new_modal = $('#main-modal').clone().removeAttr("id").addClass("appended-modal");
+                    $(".modal-stack").append(new_modal);
+
+                    $(".modal-stack").last().css({ 'z-index': 1040 + (10 * (numItems)) });
+                    $(new_modal).css({ 'z-index': 1040 + (10 * (numItems + 1)) });
+
+                    $(new_modal).addClass("fade");
+                    $(new_modal).find('.modal-body').html(data);
+                    $(new_modal).modal(options);
+                    $(new_modal).modal();
+                    $(new_modal).removeClass("fade");
+                    $(new_modal).on('hidden.bs.modal',
+                        function () {
+                            $(".modal-stack .modal").last().remove();
+                        });
+
+                    var form = $(new_modal).find('form');
+                    form.on('submit',
+                        function (e) {
+                            e.preventDefault();
+                            if ($(form.find('.error'))[0]) return;
+                            $.ajax({
+                                type: "POST",
+                                url: form.attr('action'),
+                                data: $(this).serialize(),
+                                success: function (formReturnData) {
+                                    if (!element) {
+
+                                        swal({
+                                            position: 'top-end',
+                                            type: 'success',
+                                            title: 'İşleminiz Başarı ile Tamamlanmıştır',
+                                            showConfirmButton: false,
+                                            timer: 100
+                                        });
+                                        location.reload();
+                                    } else {
+                                        if (formReturnData.error == 1) {
+                                            swal("Hata!", "İşleminiz Başarısız!", "error");
+                                        } else {
+                                            swal({
+                                                position: 'top-end',
+                                                type: 'success',
+                                                title: 'İşleminiz Başarı ile Tamamlanmıştır',
+                                                showConfirmButton: false,
+                                                timer: 100
+                                            });
+                                            $(new_modal).modal('toggle');
+
+                                            var newState = new
+                                                Option(formReturnData.value.text, formReturnData.value.id, true, true);
+                                            $(element).append(newState).trigger('change');
+
+                                        }
+                                    }
+
+                                }
+                            });
+                        });
+
+                },
+                error: function () {
+                    alert("Content load failed.");
+                }
+            });
+        }
+
+        function fileinputModal(ajaxurl, element) {
+            var options = {
+                "backdrop": "static",
+                keyboard: true
+            };
+            $.ajax({
+                type: "GET",
+                url: ajaxurl,
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (data) {
+                    var numItems = $('.appended-modal').length;
+
+                    var new_modal = $('#main-modal').clone().removeAttr("id").addClass("appended-modal");
+                    $(".modal-stack").append(new_modal);
+
+                    $(".modal-stack").last().css({ 'z-index': 1040 + (10 * (numItems)) });
+                    $(new_modal).css({ 'z-index': 1040 + (10 * (numItems + 1)) });
+
+                    $(new_modal).addClass("fade");
+                    $(new_modal).find('.modal-body').html(data);
+                    $(new_modal).modal(options);
+                    $(new_modal).modal();
+                    $(new_modal).removeClass("fade");
+                    $(new_modal).on('hidden.bs.modal',
+                        function () {
+                            $(".modal-stack .modal").last().remove();
+                        });
+
+                    var form = $(new_modal).find('form');
+                    form.on('submit',
+                        function (e) {
+                            if ($(form.find('.error'))[0] || $(form.find('.warning'))[0]) {
+                                e.preventDefault();
+                            } 
+
+                        });
+                },
+                error: function () {
+                    alert("Content load failed.");
+                }
+            });
+        }
+
+
+
+    </script>
+
+
+
+</body>
+</html>

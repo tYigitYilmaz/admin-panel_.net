@@ -1,0 +1,202 @@
+﻿<!-- Duration Time Graph -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Kategori Bazlı Giderler
+                <div class="panel-action">
+                    <div class="s-table-actions">
+                        <div class="input-group-btn pull-right">
+                            <button type="button" class="btn btn-filter-view" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ti-more-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                    <div id="by-outgoing-type" style="width:100%; height:450px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Duration Time Graph -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Alt Kategori Bazlı Giderler
+                <div class="panel-action">
+                    <div class="s-table-actions">
+                        <div class="input-group-btn pull-right">
+                            <button type="button" class="btn btn-filter-view" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ti-more-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                    <div id="by-suboutgoing-type" style="width:100%; height:450px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart JS -->
+<script src="/plugins/charts/echarts/echarts-all.js"></script>
+
+
+<script>
+
+    var personnelAnalyticPageData;
+
+    //$(document).ready( function() {
+
+    //    getPageData();
+    //});
+
+    function chartsInit() {
+
+        $.ajax({
+            url: '/Analytics/GetOutgoingPageData?date=' + window.currentDate,
+            type: 'GET',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.error === 0) {
+                } else {
+                    personnelAnalyticPageData = data;
+                    fillCharts();
+                }
+            }
+        });
+    }
+
+    function fillCharts() {
+
+        var byOutgoingType = echarts.init(document.getElementById('by-outgoing-type'));
+
+        option = {
+            tooltip: {
+                trigger: 'axis',
+                formatter: "{b}  <br> ₺ {c}"
+            },
+            legend: {
+                data: ['Tutar']
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    magicType: { show: true, type: ['line', 'bar'] },
+                    saveAsImage: { show: true }
+                }
+            },
+            color: ["#4b91c4"],
+            xAxis: [
+                {
+                    type: 'category',
+                    data: personnelAnalyticPageData.AmountByOutgoingTypeModel.XAxis
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: 'Tutar',
+                    type: 'bar',
+                    data: personnelAnalyticPageData.AmountByOutgoingTypeModel.Amount,
+
+                    markLine: {
+                        data: [
+                            { type: 'average', name: 'Average' }
+                        ]
+                    }
+                }
+            ]
+        };
+
+        // use configuration item and data specified to show chart
+        byOutgoingType.setOption(option, true), $(function () {
+            function resize() {
+                setTimeout(function() {
+                    byOutgoingType.resize()
+                },
+                    100)
+            }
+
+            $(window).on("resize", resize), $(".sidebartoggler").on("click", resize)
+        });
+
+        var bySubOutgoingType = echarts.init(document.getElementById('by-suboutgoing-type'));
+
+        option = {
+            tooltip: {
+                trigger: 'axis',
+                formatter: "{b}  <br> ₺ {c}"
+            },
+            legend: {
+                data: ['Tutar']
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    magicType: { show: true, type: ['line', 'bar'] },
+                    saveAsImage: { show: true }
+                }
+            },
+            color: ["#9675ce"],
+            xAxis: [
+                {
+                    type: 'category',
+                    data: personnelAnalyticPageData.AmountBySubOutgoingTypeModel.XAxis
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: 'Tutar',
+                    type: 'bar',
+                    data: personnelAnalyticPageData.AmountBySubOutgoingTypeModel.Amount,
+
+                    markLine: {
+                        data: [
+                            { type: 'average', name: 'Average' }
+                        ]
+                    }
+                }
+            ]
+        };
+
+        // use configuration item and data specified to show chart
+        bySubOutgoingType.setOption(option, true), $(function () {
+            function resize() {
+                setTimeout(function () {
+                    bySubOutgoingType.resize()
+                },
+                    100)
+            }
+
+            $(window).on("resize", resize), $(".sidebartoggler").on("click", resize)
+        });
+
+
+
+    }
+
+
+
+
+</script>

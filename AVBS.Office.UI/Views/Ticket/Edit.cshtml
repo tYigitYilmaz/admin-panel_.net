@@ -1,0 +1,33 @@
+﻿<!-- Page Content -->
+<div class="container-fluid">
+    <div class="row bg-title">
+        <h4 class="page-title"> Danışmanlık İşlemleri </h4>
+    </div>
+
+    @using ( Html.BeginForm( "Edit", "Ticket", FormMethod.Post, new { @class = "form-horizontal", novalidate = "" } ) ) {
+        <div class="panel panel-default" style="margin-top: 0">
+            <div class="panel-heading">
+                Düzenle <small class="text-muted"> Soru </small>
+            </div>
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                    <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+                    @Html.Partial( "Partial/_Form" )
+
+                    <div class="form-group m-b-0">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-default waves-effect waves-light m-t-10" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Geri</span></button>
+                            <button type="submit" class="btn btn-info waves-effect waves-light m-t-10">Kaydet</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    }
+
+    </div>
+
+
+

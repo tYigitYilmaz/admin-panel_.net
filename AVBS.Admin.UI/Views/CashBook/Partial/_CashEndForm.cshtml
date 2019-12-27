@@ -1,0 +1,45 @@
+﻿@using AVBS.Entity.Concrete
+@using AVBS.Enum
+@model AVBS_CashBook
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary( true )
+
+<style>
+    .form-horizontal .form-group {
+        margin-right: 0 !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="CashEnd">Kasa Devir</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-money"></i>
+                </div>
+                @Html.TextBoxFor( model => model.CashEnd, htmlAttributes: new { @class = "form-control", @placeholder = "Kasa Devir", required = "required", data_inputmask = "'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="Bank">Banka</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-money"></i>
+                </div>
+                @Html.TextBoxFor( model => model.Bank, htmlAttributes: new { @class = "form-control", @placeholder = "Banka", data_inputmask = "'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+</div>
+
+
+@*<script src="/plugins/inputmask/jquery.inputmask.bundle.js"></script>*@
+<script src="/plugins/bower_components/custom-select/custom-select.min.js"></script>
+<script src="/js/validator.js"></script>
+

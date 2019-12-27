@@ -1,0 +1,38 @@
+﻿@section Styles {
+    <link href="/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" /> 
+    <link href="https://cdn.datatables.net/rowreorder/1.2.3/css/rowReorder.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/custom-table.css" rel="stylesheet" type="text/css" />
+}
+
+<!-- Page Content -->
+<div class="container-fluid">
+    <div class="row bg-title">
+        <h4 class="page-title">@ViewBag.Menu.Name ( @ViewBag.Menu.AVBS_MenuSize.Name ) - İçerikleri</h4>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Menü <small class="text-muted"> İçerik </small>
+        </div>
+        <div class="panel-wrapper">
+            <div class="panel-body">
+                
+                @{Html.RenderPartial( "Partial/_Table" );}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+
+@section Scripts {
+
+    <script src="/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/rowreorder/1.2.3/js/dataTables.rowReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
+    <script src="/js/custom-table.js"></script>
+
+}

@@ -1,0 +1,98 @@
+﻿@using AVBS.Enum
+<div class="row s-table-elements">
+    <div class="col-lg col-sm-12">
+        <form class="s-input-group">
+            <div class="input-group-addon s-table-search"><i class="fa fa-search"></i></div>
+            <div class="floating-labels table-search">
+                <input type="text" class="form-control table-search-input" id="ingredientLabelCompanySearch" placeholder="Search . . ."><span class="highlight"></span> <span class="bar"></span>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="s-table-actions">
+            <button data-url="/ingredientlabelcompany/createpartial/" class="btn btn-primary ajax-modal pull-right"> İçerik Ekle </button>
+            <div class="input-group-btn pull-right mr-2">
+                <button type="button" class="btn btn-filter-view" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ti-more-alt"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#"> Export as Excel </a>
+                    <a class="dropdown-item" href="#"> Export as Pdf </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="ingredientLabelCompanyTableDiv" class="table-responsive">
+    <table id="ingredientLabelCompanyTable" class="display nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr> 
+                <th>Firma</th>
+                <th style="text-align: center;">Marka</th>
+                <th style="text-align: center;">İçerik Adı</th> 
+                <th style="text-align: center;">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th> 
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+<script>
+
+    $(document).ready(function() {
+        var ingredientLabelCompanyTable = $('#ingredientLabelCompanyTable').DataTable({
+            ajax: {
+                "url": '/IngredientLabelCompany/GetList'
+            },
+            columnDefs: [ 
+                {
+                    targets: 0,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.WorkWithCompanyName;
+                    }
+                },
+                {
+                    targets: 1,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.LabelName;
+                    }
+                },
+                {
+                    targets: 2,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return full.IngredientName;
+                    }
+                },
+                {
+                    orderable: false,
+                    targets: 3,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return ' <a href="#" data-url="/ingredientlabelcompany/editpartial/' + full.Id + '" class="ajax-modal" data-original-title="Edit"> <i class="ti-pencil text-inverse m-r-10"></i> </a>' + '<a href="#" data-url="/ingredientlabelcompany/delete/' + full.Id + '" class="remove-element" data-toggle="tooltip" data-original-title="Close"> <i class="ti-trash text-danger"></i> </a>';
+                    }
+                }
+
+            ]
+        });
+
+        // initialize tables search inputs
+        $('#ingredientLabelCompanySearch').keyup(function () {
+            ingredientLabelCompanyTable.search($(this).val()).draw();
+        });
+    })
+
+</script>

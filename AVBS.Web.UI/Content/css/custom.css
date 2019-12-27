@@ -1,0 +1,16 @@
+.main-content {
+    background: #181a1c;
+}
+
+.menu-image {
+    margin-top: 100px; 
+}
+
+.menu-page-bg {
+    -ms-background-position: UNSET;
+    background-position: UNSET;
+}
+
+.popup-pulse {
+    margin-top: unset;  
+}

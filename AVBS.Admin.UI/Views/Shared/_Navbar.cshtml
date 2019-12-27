@@ -1,0 +1,92 @@
+﻿@using AVBS.Entity.Concrete
+
+@{
+	var user = (AVBS_User)Session["user"];
+}
+
+<nav class="navbar navbar-default navbar-static-top m-b-0">
+	<div class="navbar-header">
+		<a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+		<div class="top-left-part"><a class="logo" href="/"><b><img src="/Content/img/logo2.png" width="57" height="47" alt="home" /></b><span style="color:black" class="hidden-xs">Control Panel</span></a></div>
+		<ul class="nav navbar-top-links navbar-left hidden-xs">
+			<li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
+		</ul>
+		<ul class="nav navbar-top-links navbar-right pull-right">
+
+			<!-- /.dropdown -->
+			<li class="nav-item dropdown u-pro">
+				<a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<img id="smallpic" src="@user.ImageUrl" alt="user-img" width="36" height="36" class="img-circle">
+					<div class="avatar-navbar no-photo-div-navbar t-a-c hide"></div>
+				</a>
+				<div class="dropdown-menu dropdown-menu-right animated flipInY b-r-2" style="width: 250px; padding: 0; margin: 0; border: none">
+					<div class="user-bg profile-dropdown-menu b-r-2" style="min-height: 120px;">
+						<a href="/Settings/Account">
+							<div class="overlay-box" style="height: 120px; background: #b6b7b8">
+								<div style="background:url('@user.ImageUrl') center/contain no-repeat; width: 100%; height: 100%; position: absolute; opacity: 0.2"></div>
+								@*<img width="100%" alt="user" src="@user.ImageUrl">*@
+								<div style="margin: 20px">
+									<div class="row">
+										<div class="col-lg-5">
+											<img id="largepic" src="@user.ImageUrl" class="img-circle" alt="img" style="width: 80px; height: 80px;">
+											<div class="avatar-navbar no-photo-div-navbar t-a-c hide" style="margin-top: 0px;height: 80px;width: 80px; font-size:30px"></div>
+										</div>
+										<div class="col-lg-7">
+											<h5 class="text-white">@user.Name &nbsp;@user.Surname</h5>
+											<h6 class="text-white">@user.Email &nbsp;</h6>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+
+						<ul class="nav in nav-profile-menu" style="margin-top: 129px; display: block;">
+							<li>
+								<a href="/Settings/Account"><i class="ti-user"></i> My Profile </a>
+
+							</li>
+							<li role="separator" class="divider"></li>
+							<li>
+								<a href="/Login/Logout"><i class="icon-logout"></i> Logout </a>
+							</li>
+						</ul>
+					</div>
+					@*<ul class="dropdown-menu dropdown-user animated flipInY">
+							<li></li>
+							<li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
+							<li><a href="#"><i class="ti-email"></i> Inbox</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+						</ul>*@
+
+					<!-- text-->
+				</div>
+			</li>
+		</ul>
+	</div>
+	<!-- /.navbar-header -->
+	<!-- /.navbar-top-links -->
+	<!-- /.navbar-static-side -->
+</nav>
+<script>
+	$(document).ready(function () {
+		var name = "@user.Name";
+		var surname = "@user.Surname";
+		var imageURL = "@user.ImageUrl";
+
+		var intials = name.charAt(0).toUpperCase() + surname.charAt(0).toUpperCase();
+		$(".no-photo-div-navbar").text(intials).css("background-color", "#fafafa").css("color", "#5D6F94");
+
+		//if no profile image write first letters of name and surname
+		if (imageURL == '' || imageURL == null) {
+			$(".no-photo-div-navbar").removeClass("hide");
+			$("#smallpic").addClass("hide"); // hide img tag
+			$("#largepic").addClass("hide"); // hide img tag
+		} else {
+			$("#smallpic").attr('src', imageURL);
+			$("#largepic").attr('src', imageURL);
+		}
+	});
+</script>

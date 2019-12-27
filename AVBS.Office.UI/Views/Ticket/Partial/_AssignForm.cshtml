@@ -1,0 +1,50 @@
+﻿@model AVBS.Office.UI.Models.Ticket.TicketModel
+
+<style>
+    .form-horizontal .form-group {
+        margin-right: 0 !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="AssignedUserId"> Atanacak Personel </label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="icon-tag"></i></div>
+                @Html.DropDownList( "AssignedUserId", new SelectList( ViewBag.PersonnelList, "Id", "Name" ), "", htmlAttributes: new { placeholder = "Personel Seçiniz", @class = "form-control select2", required = "required" } )
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/plugins/bower_components/custom-select/custom-select.min.js"></script>
+<script src="/plugins/inputmask/jquery.inputmask.bundle.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#AssignedUserId").select2({
+            formatNoMatches: function (term) {
+                return "<em>" +
+					term +
+					'</em> kayıt bulunamadı.<br><a href="/" onclick="modalForm(\'/personnel/createwithreturn\',\'#AssignedUserId\')"> + Yeni Ekle </a>';
+            }
+        });
+
+
+    });
+
+    $(function () {
+        $("input,textarea,select").jqBootstrapValidation(
+            {
+                preventSubmit: true,
+                filter: function () {
+                    return $(this).is(":visible");
+                }
+            }
+        );
+    });
+</script>

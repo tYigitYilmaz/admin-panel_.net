@@ -1,0 +1,151 @@
+﻿@using AVBS.Entity.Concrete
+@using AVBS.Enum
+@model AVBS_IngredientUnitPrice
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary( true )
+
+<style>
+    .form-horizontal .form-group {
+        margin-right: 0 !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="Date"> Tarih </label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="icon-calender"></i></div>
+                @Html.TextBoxFor( model => model.Date, ( Model != null ) ? Model.Date.ToString( "dd/MM/yyyy" ) : "", htmlAttributes: new { @class = "form-control mydatepicker", @placeholder = "Tarih Seçiniz" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="IngredientLabelCompanyId"> İçerik </label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-bookmark"></i>
+                </div>
+                @Html.DropDownListFor( model => model.IngredientLabelCompanyId, new SelectList( ViewBag.IngredientLabelCompanyList, "Id", "Name" ), "", htmlAttributes: new { placeholder = "İçerik Seçiniz", @class = "form-control select2", required = "required" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md col-sm-12">
+        <div class="form-group">
+            <label for="UnitQuantity">Birim Miktar</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-money"></i>
+                </div>
+                @Html.TextBoxFor( model => model.UnitQuantity, htmlAttributes: new { @class = "form-control", @placeholder = "Birim Miktar", required = "required", data_inputmask = "'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 3, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="UnitTypeId">Birim Tipi</label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-line-double"></i>
+                </div>
+                @Html.DropDownListFor( model => model.UnitTypeId, new SelectList( ViewBag.UnitTypeList, "Id", "Name" ), "", htmlAttributes: new { placeholder = "Birim Tipi Seçiniz", @class = "form-control select2", required = "required" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="UnitPrice"> Birim Fiyat </label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="ti-money"></i>
+                </div>
+                @Html.TextBoxFor( model => model.UnitPrice, htmlAttributes: new { @class = "form-control", @placeholder = "Birim Fiyat Giriniz", required = "required", data_inputmask = "'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="TaxCutPercentage"> Vergi Kesinti Yüzdesi (KDV) </label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="">%</i>
+                </div>
+                @Html.TextBoxFor( model => model.TaxCutPercentage, htmlAttributes: new { @class = "form-control", @placeholder = "Vergi Kesinti Yüzdesi Giriniz", required = "required", data_inputmask = "'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="Detail"> Açıklama (*) </label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="ti-text"></i></div>
+                @Html.TextAreaFor( model => model.Detail, htmlAttributes: new { @class = "form-control", @placeholder = "Opsiyonel", maxlength = "255" } )
+            </div>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+</div>
+
+@*<script src="/plugins/inputmask/jquery.inputmask.bundle.js"></script>*@
+<script src="/plugins/bower_components/custom-select/custom-select.min.js"></script>
+<script src="/js/validator.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(document).on("submit",
+            "#selectbox_validate",
+            function () {
+                if ($("div#maindiv").hasClass("has-error")) {
+                    $(this).find(".bootstrap-select")
+                        .after("<h6 class='has-error' style='color:red;'>please select any value from options.</h6>");
+                }
+
+            });
+
+
+        $("#WorkWithCompanyId").select2({
+            formatNoMatches: function (term) {
+                return "<em>" +
+					term +
+					'</em> not found.<br><a href="/" onclick="modalForm(\'/references/workwithcompany/createwithreturn\',\'#WorkWithCompanyId\')"> + Yeni Ekle </a>';
+            }
+        });
+
+        $("#IngredientLabelCompanyId").select2({
+            formatNoMatches: function (term) {
+                return "<em>" +
+					term +
+					'</em> not found.<br><a href="/" onclick="modalForm(\'/ingredientlabelcompany/createwithreturn\',\'#IngredientLabelCompanyId\')"> + Yeni Ekle </a>';
+            }
+        });
+
+
+        $("#UnitTypeId").select2({
+            formatNoMatches: function (term) {
+                return "<em>" +
+					term +
+					'</em> not found.<br><a href="/" onclick="modalForm(\'/references/unittype/createwithreturn\',\'#UnitTypeId\')"> + Yeni Ekle </a>';
+            }
+        });
+
+    });
+
+
+</script>

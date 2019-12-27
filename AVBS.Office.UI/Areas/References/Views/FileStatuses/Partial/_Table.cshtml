@@ -1,0 +1,82 @@
+﻿<div class="row s-table-elements">
+    <div class="col-lg col-sm-12">
+        <form class="s-input-group">
+            <div class="input-group-addon s-table-search"><i class="fa fa-search"></i></div>
+            <div class="floating-labels table-search">
+                <input type="text" class="form-control table-search-input" id="fileStatusesSearch" placeholder="Search . . ."><span class="highlight"></span> <span class="bar"></span>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg col-sm-12">
+        <div class="s-table-actions">
+            <button data-url="/references/filestatuses/createpartial/@ViewBag.CashBookId" class="btn btn-primary btn-xs ajax-modal pull-right"> Yeni Ekle </button>
+            <div class="input-group-btn pull-right mr-2">
+                <button type="button" class="btn btn-filter-view" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="ti-more-alt"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#"> Export as Excel </a>
+                    <a class="dropdown-item" href="#"> Export as Pdf </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="fileStatusesTableDiv" class="table-responsive">
+    <table id="fileStatusesTable" class="display nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Adı</th>
+                <th style="width: 70%"></th>
+                <th style="text-align: center;">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+<script>
+
+    var totalOutgoing = 0;
+
+    $(document).ready(function() {
+        var fileStatusesTable = $('#fileStatusesTable').DataTable({
+            ajax: '/FileStatuses/GetList',
+            columnDefs: [
+                {
+                    targets: 0,
+                    className: 'all',
+                    render: function (Id, type, full) {
+                        return full.Name;
+                    }
+                },
+                 {
+                     orderable: false,
+                     targets: 1,
+                     className: 'dt-center',
+                     render: function (Id, type, full) {
+                         return "";
+                     }
+                 },
+                {
+                    orderable: false,
+                    targets: 2,
+                    className: 'dt-center',
+                    render: function (Id, type, full) {
+                        return ' <a href="#" data-url="/references/filestatuses/editpartial/' + full.Id + '" class="ajax-modal" data-original-title="Edit"> <i class="ti-pencil text-inverse m-r-10"></i> </a>' + '<a href="#" data-url="/references/filestatuses/delete/' + full.Id + '" class="remove-element" data-toggle="tooltip" data-original-title="Close"> <i class="ti-trash text-danger"></i> </a>';
+                    }
+                }
+
+            ]
+        });
+
+        // initialize tables search inputs
+        $('#fileStatuses').keyup(function () {
+            fileStatusesTable.search($(this).val()).draw();
+        });
+    })
+
+</script>
